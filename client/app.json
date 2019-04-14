@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Ryazan Mobile Application",
-    "slug": "client",
+    "slug": "ryazan",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "org.mobile.ryazan",
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "org.mobile.ryazan"
+    }  
   }
 }
