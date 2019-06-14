@@ -1,25 +1,35 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "eject": "expo eject"
-  },
-  "dependencies": {
-    "expo": "^33.0.5",
-    "expo-location": "^5.0.1",
-    "expo-permissions": "^5.0.1",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-native-maps": "^0.24.0",
-    "react-navigation": "^3.11.0"
-  },
-  "devDependencies": {
-    "@types/expo": "^32.0.13",
-    "@types/react-native": "^0.57.63",
-    "babel-preset-expo": "^5.2.0",
-    "typescript": "^3.5.2"
-  },
-  "private": true
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "eject": "expo eject",
+        "compile": "tsc",
+        "lint": "tslint \"src/**/*.{ts,tsx}\""
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn compile && yarn lint"
+        }
+    },
+    "dependencies": {
+        "expo": "33.0.5",
+        "expo-location": "5.0.1",
+        "expo-permissions": "5.0.1",
+        "react": "16.8.3",
+        "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+        "react-native-maps": "0.24.0",
+        "react-navigation": "3.11.0"
+    },
+    "devDependencies": {
+        "@types/expo": "^32.0.13",
+        "@types/react-native": "^0.57.63",
+        "babel-preset-expo": "^5.2.0",
+        "husky": "^2.4.1",
+        "prettier": "^1.18.2",
+        "tslint": "^5.17.0",
+        "typescript": "^3.5.2"
+    },
+    "private": true
 }
