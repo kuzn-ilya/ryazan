@@ -1,0 +1,32 @@
+{
+  "connection": "default",
+  "collectionName": "routes",
+  "info": {
+    "name": "route",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "photos": {
+      "collection": "photo",
+      "via": "route"
+    },
+    "routeitems": {
+      "collection": "routeitem",
+      "via": "route"
+    }
+  }
+}

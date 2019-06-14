@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "routeitems",
+  "info": {
+    "name": "routeitem",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "poi": {
+      "model": "poi",
+      "via": "routeitem"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "route": {
+      "model": "route",
+      "via": "routeitems"
+    }
+  }
+}

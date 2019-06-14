@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/routeitems",
+      "handler": "Routeitem.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/routeitems/count",
+      "handler": "Routeitem.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/routeitems/:id",
+      "handler": "Routeitem.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/routeitems",
+      "handler": "Routeitem.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/routeitems/:id",
+      "handler": "Routeitem.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/routeitems/:id",
+      "handler": "Routeitem.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "connection": "default",
+  "collectionName": "places",
+  "info": {
+    "name": "poi",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "category": {
+      "model": "category",
+      "via": "pois"
+    },
+    "description": {
+      "type": "text"
+    },
+    "photos": {
+      "collection": "photo",
+      "via": "poi"
+    },
+    "routeitem": {
+      "model": "routeitem",
+      "via": "poi"
+    }
+  }
+}

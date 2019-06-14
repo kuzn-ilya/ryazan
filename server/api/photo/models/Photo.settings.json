@@ -1,0 +1,28 @@
+{
+  "connection": "default",
+  "collectionName": "photos",
+  "info": {
+    "name": "photo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "content": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "poi": {
+      "model": "poi",
+      "via": "photos"
+    },
+    "route": {
+      "model": "route",
+      "via": "photos"
+    }
+  }
+}
