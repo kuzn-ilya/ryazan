@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NavigationScreenConfigProps } from 'react-navigation'
-import { MapView, PROVIDER_GOOGLE, Location, Permissions } from 'expo';
+import { NavigationScreenConfigProps } from 'react-navigation';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { styles } from './styles';
 
 export type MapScreenProps = {} & NavigationScreenConfigProps
