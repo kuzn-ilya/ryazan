@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {Container} from './styles';
+import mapStyle from '../../config/map-style.json';
 
 export type MapScreenProps = {} & NavigationScreenConfigProps;
 
@@ -46,6 +47,7 @@ export class MapScreen extends React.Component<MapScreenProps, MapScreenState> {
                 <MapView
                     style={StyleSheet.absoluteFillObject}
                     provider={PROVIDER_GOOGLE}
+                    customMapStyle={mapStyle}
                     initialRegion={{
                         latitude: this.state.location.latitude,
                         longitude: this.state.location.longitude,
