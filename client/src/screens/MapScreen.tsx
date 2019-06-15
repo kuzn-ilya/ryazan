@@ -4,7 +4,7 @@ import {NavigationScreenConfigProps} from 'react-navigation';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {styles} from './styles';
+import {Container} from './styles';
 
 export type MapScreenProps = {} & NavigationScreenConfigProps;
 
@@ -42,7 +42,7 @@ export class MapScreen extends React.Component<MapScreenProps, MapScreenState> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <Container>
                 <MapView
                     style={StyleSheet.absoluteFillObject}
                     provider={PROVIDER_GOOGLE}
@@ -53,7 +53,7 @@ export class MapScreen extends React.Component<MapScreenProps, MapScreenState> {
                         longitudeDelta: 0.0421,
                     }}
                 />
-            </View>
+            </Container>
         );
     }
 }

@@ -20,11 +20,13 @@
         "react": "16.8.3",
         "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
         "react-native-maps": "0.24.0",
-        "react-navigation": "3.11.0"
+        "react-navigation": "3.11.0",
+        "styled-components": "4.3.1"
     },
     "devDependencies": {
         "@types/expo": "^32.0.13",
         "@types/react-native": "^0.57.63",
+        "@types/styled-components": "4.1.9",
         "babel-preset-expo": "^5.2.0",
         "husky": "^2.4.1",
         "prettier": "^1.18.2",
