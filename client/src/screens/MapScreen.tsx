@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {NavigationScreenConfigProps} from 'react-navigation';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';

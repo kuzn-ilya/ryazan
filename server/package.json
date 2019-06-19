@@ -18,20 +18,21 @@
     "eslint-plugin-react": "^7.7.0"
   },
   "dependencies": {
-    "lodash": "^4.17.5",
+    "knex": "latest",
+    "lodash": "4.17.5",
+    "pg": "7.11.0",
     "strapi": "3.0.0-beta.4",
     "strapi-admin": "3.0.0-beta.4",
-    "strapi-utils": "3.0.0-beta.4",
     "strapi-hook-bookshelf": "3.0.0-beta.4",
-    "strapi-plugin-settings-manager": "3.0.0-beta.4",
-    "strapi-plugin-content-type-builder": "3.0.0-beta.4",
-    "strapi-plugin-content-manager": "3.0.0-beta.4",
-    "strapi-plugin-users-permissions": "3.0.0-beta.4",
-    "strapi-plugin-email": "3.0.0-beta.4",
-    "strapi-plugin-upload": "3.0.0-beta.4",
     "strapi-hook-knex": "3.0.0-beta.4",
-    "knex": "latest",
-    "pg": "7.11.0"
+    "strapi-plugin-content-manager": "3.0.0-beta.4",
+    "strapi-plugin-content-type-builder": "3.0.0-beta.4",
+    "strapi-plugin-email": "3.0.0-beta.4",
+    "strapi-plugin-graphql": "3.0.0-beta.4",
+    "strapi-plugin-settings-manager": "3.0.0-beta.4",
+    "strapi-plugin-upload": "3.0.0-beta.4",
+    "strapi-plugin-users-permissions": "3.0.0-beta.4",
+    "strapi-utils": "3.0.0-beta.4"
   },
   "author": {
     "name": "A Strapi developer",

@@ -6,7 +6,8 @@
         "ios": "expo start --ios",
         "eject": "expo eject",
         "compile": "tsc",
-        "lint": "tslint \"src/**/*.{ts,tsx}\""
+        "lint": "tslint \"src/**/*.{ts,tsx}\"",
+        "gql-gen": "graphql-codegen --config codegen.json"
     },
     "husky": {
         "hooks": {
@@ -14,16 +15,24 @@
         }
     },
     "dependencies": {
+        "apollo-boost": "0.4.2",
         "expo": "33.0.5",
         "expo-location": "5.0.1",
         "expo-permissions": "5.0.1",
+        "graphql": "14.3.1",
         "react": "16.8.3",
+        "react-apollo": "2.5.6",
+        "react-apollo-hooks": "0.4.5",
         "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
         "react-native-maps": "0.24.0",
         "react-navigation": "3.11.0",
         "styled-components": "4.3.1"
     },
     "devDependencies": {
+        "@graphql-codegen/cli": "^1.2.1",
+        "@graphql-codegen/typescript": "1.2.1",
+        "@graphql-codegen/typescript-operations": "1.2.1",
+        "@graphql-codegen/typescript-react-apollo": "1.2.1",
         "@types/expo": "^32.0.13",
         "@types/react-native": "^0.57.63",
         "@types/styled-components": "4.1.9",

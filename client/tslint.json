@@ -77,5 +77,8 @@
             "check-type"
         ],
         "interface-over-type-literal": false
+    },
+    "linterOptions": {
+        "exclude": ["./src/typings/graphql.tsx"]
     }
 }
