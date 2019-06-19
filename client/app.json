@@ -28,6 +28,9 @@
         },
         "android": {
             "package": "org.mobile.ryazan"
+        },
+        "extra": {
+            "apiUrl": "http://192.168.0.200:1337/graphql"
         }
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {NavigationScreenConfigProps, NavigationContainer} from 'react-navigation';
+import {Query} from 'react-apollo';
 import {gql} from 'apollo-boost';
-import {useQuery} from 'react-apollo-hooks';
-import {Query} from '../typings/graphql';
+import * as Types from '../typings/graphql';
 import {MAP} from './consts';
 import {Container} from './styles';
 
@@ -18,34 +18,34 @@ const GetCategories = gql`
 
 export type HomeScreenProps = {} & NavigationScreenConfigProps;
 
-export const HomeScreen: React.FC<HomeScreenProps> = ({navigation: {navigate}}) => {
-    const {data, loading, error} = useQuery<Query>(GetCategories);
-
-    return (
-        <>
-            <Container>
-                {loading && <Text>Loading...</Text>}
-                {error && <Text>Error! {error.message}</Text>}
-                {data && data.categories && (
-                    <View>
-                        {data.categories.map(
-                            category =>
-                                category && (
-                                    <Text key={category.id}>
-                                        {category.id} - {category.name}
-                                    </Text>
-                                ),
-                        )}
-                    </View>
-                )}
-            </Container>
-            <Container>
-                <Text>Ryazan Mobile Application</Text>
-                <Button title="Open map screen" onPress={() => navigate(MAP)} />
-            </Container>
-        </>
-    );
-};
+export const HomeScreen: React.FC<HomeScreenProps> = ({navigation: {navigate}}) => (
+    <Query<Types.Query> query={GetCategories}>
+        {({data, loading, error}) => (
+            <>
+                <Container>
+                    {loading && <Text>Loading...</Text>}
+                    {error && <Text>Error! {error.message}</Text>}
+                    {data && data.categories && (
+                        <View>
+                            {data.categories.map(
+                                category =>
+                                    category && (
+                                        <Text key={category.id}>
+                                            {category.id} - {category.name}
+                                        </Text>
+                                    ),
+                            )}
+                        </View>
+                    )}
+                </Container>
+                <Container>
+                    <Text>Ryazan Mobile Application</Text>
+                    <Button title="Open map screen" onPress={() => navigate(MAP)} />
+                </Container>
+            </>
+        )}
+    </Query>
+);
 
 ((HomeScreen as unknown) as NavigationContainer).navigationOptions = {
     title: 'Home',
