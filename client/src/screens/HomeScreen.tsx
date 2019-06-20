@@ -4,7 +4,7 @@ import {NavigationScreenConfigProps, NavigationContainer} from 'react-navigation
 import {Query} from 'react-apollo';
 import {gql} from 'apollo-boost';
 import * as Types from '../typings/graphql';
-import {MAP} from './consts';
+import {Routes} from './consts';
 import {Container} from './styles';
 
 const GetCategories = gql`
@@ -40,7 +40,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation: {navigate}}) 
                 </Container>
                 <Container>
                     <Text>Ryazan Mobile Application</Text>
-                    <Button title="Open map screen" onPress={() => navigate(MAP)} />
+                    <Button title="Open map screen" onPress={() => navigate(Routes.MAP)} />
                 </Container>
             </>
         )}
