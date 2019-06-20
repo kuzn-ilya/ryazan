@@ -2,7 +2,7 @@
     "overwrite": true,
     "schema": "http://localhost:1337/graphql",
     "generates": {
-        "src/typings/graphql.tsx": {
+        "src/types/graphql.tsx": {
             "plugins": ["typescript", "typescript-operations", "typescript-react-apollo"]
         }
     }

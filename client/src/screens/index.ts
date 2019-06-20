@@ -5,4 +5,3 @@ export * from './MapScreen';
 export * from './PoiDetailsScreen';
 export * from './PoiScreen';
 export * from './RoutesScreen';
-export * from './consts';
