@@ -1,15 +1,14 @@
 import React from 'react';
 import {View} from 'react-native';
-import {NavigationScreenConfigProps, NavigationContainer} from 'react-navigation';
+import {NavigationScreenComponent} from 'react-navigation';
+import {createTabIcon} from '../components';
 
-export type FavoritesScreenProps = {} & NavigationScreenConfigProps;
-
-export const FavoritesScreen: React.FC<FavoritesScreenProps> = () => {
+export const FavoritesScreen: NavigationScreenComponent = () => {
     return (
         <View />
     );
 };
 
-((FavoritesScreen as unknown) as NavigationContainer).navigationOptions = {
-    title: 'Favorites',
+FavoritesScreen.navigationOptions = {
+    tabBarIcon: createTabIcon('stars'),
 };

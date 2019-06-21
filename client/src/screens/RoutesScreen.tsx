@@ -1,15 +1,14 @@
 import React from 'react';
 import {View} from 'react-native';
-import {NavigationScreenConfigProps, NavigationContainer} from 'react-navigation';
+import {NavigationScreenComponent} from 'react-navigation';
+import {createTabIcon} from '../components';
 
-export type RoutesScreenProps = {} & NavigationScreenConfigProps;
-
-export const RoutesScreen: React.FC<RoutesScreenProps> = () => {
+export const RoutesScreen: NavigationScreenComponent = () => {
     return (
         <View />
     );
 };
 
-((RoutesScreen as unknown) as NavigationContainer).navigationOptions = {
-    title: 'Routes',
+RoutesScreen.navigationOptions = {
+    tabBarIcon: createTabIcon('directions-walk'),
 };

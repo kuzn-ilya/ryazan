@@ -1,12 +1,11 @@
 import React from 'react';
 import {Text, TouchableHighlight} from 'react-native';
-import {NavigationScreenConfigProps, NavigationContainer} from 'react-navigation';
+import {NavigationScreenComponent} from 'react-navigation';
+import {createTabIcon} from '../components';
 import {Routes} from '../consts/routes';
 import {Container} from './styles';
 
-export type PoiScreenProps = {} & NavigationScreenConfigProps;
-
-export const PoiScreen: React.FC<PoiScreenProps> = ({navigation}) => {
+export const PoiScreen: NavigationScreenComponent = ({navigation}) => {
     const handlePress = () => {
         navigation.navigate(Routes.POI_DETAILS);
     };
@@ -20,6 +19,6 @@ export const PoiScreen: React.FC<PoiScreenProps> = ({navigation}) => {
     );
 };
 
-((PoiScreen as unknown) as NavigationContainer).navigationOptions = {
-    title: 'Points of Interest',
+PoiScreen.navigationOptions = {
+    tabBarIcon: createTabIcon('format-list-bulleted'),
 };

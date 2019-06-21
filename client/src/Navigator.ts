@@ -14,7 +14,7 @@ import {
     RoutesScreen,
 } from './screens';
 
-import {Routes} from './consts'
+import {Routes} from './consts';
 
 const Tabs = createBottomTabNavigator({
     [Routes.MAP]: MapScreen,
@@ -22,6 +22,14 @@ const Tabs = createBottomTabNavigator({
     [Routes.ROUTES]: RoutesScreen,
     [Routes.FAVORITES]: FavoritesScreen,
 }, {
+    tabBarOptions: {
+        showLabel: false,
+        activeTintColor: '#eb5757',
+        inactiveTintColor: '#666',
+        style: {
+            height: 60,
+        },
+    },
     navigationOptions: {
         header: null,
     },
