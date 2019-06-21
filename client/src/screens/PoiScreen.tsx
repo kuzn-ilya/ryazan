@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableHighlight} from 'react-native';
 import {NavigationScreenConfigProps, NavigationContainer} from 'react-navigation';
-import {Routes} from './consts';
+import {Routes} from '../consts/routes';
 import {Container} from './styles';
 
 export type PoiScreenProps = {} & NavigationScreenConfigProps;

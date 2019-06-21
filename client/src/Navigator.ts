@@ -12,8 +12,9 @@ import {
     PoiDetailsScreen,
     PoiScreen,
     RoutesScreen,
-    Routes,
 } from './screens';
+
+import {Routes} from './consts'
 
 const Tabs = createBottomTabNavigator({
     [Routes.MAP]: MapScreen,
