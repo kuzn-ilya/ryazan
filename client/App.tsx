@@ -3,10 +3,10 @@ import ApolloClient, {InMemoryCache} from 'apollo-boost';
 import {ApolloProvider as ApolloHooksProvider} from 'react-apollo-hooks';
 import {ApolloProvider} from 'react-apollo';
 import {AppNavigator} from './src/Navigator';
-import {env} from './src/consts'
+import {env} from './src/consts';
 
 const client = new ApolloClient({
-    uri: env.apiUrl,
+    uri: `${env.apiUrl}/graphql`,
     cache: new InMemoryCache(),
 });
 
