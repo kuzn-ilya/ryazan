@@ -14,7 +14,7 @@ import {
     RoutesScreen,
 } from './screens';
 
-import {Routes} from './consts';
+import {Routes, theme} from './consts';
 
 const Tabs = createBottomTabNavigator({
     [Routes.MAP]: MapScreen,
@@ -24,7 +24,7 @@ const Tabs = createBottomTabNavigator({
 }, {
     tabBarOptions: {
         showLabel: false,
-        activeTintColor: '#eb5757',
+        activeTintColor: theme.red,
         inactiveTintColor: '#666',
         style: {
             height: 60,

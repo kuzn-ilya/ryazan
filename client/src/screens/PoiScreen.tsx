@@ -7,7 +7,7 @@ import {Container} from './styles';
 
 export const PoiScreen: NavigationScreenComponent = ({navigation}) => {
     const handlePress = () => {
-        navigation.navigate(Routes.POI_DETAILS);
+        navigation.navigate(Routes.POI_DETAILS, {poiId: 1});
     };
 
     return (
