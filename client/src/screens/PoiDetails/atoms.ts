@@ -15,7 +15,7 @@ export const Picture = styled.Image`
 `;
 
 export const Content = styled.View`
-    padding: ${theme.screenIndent}px;
+    padding: ${theme.screenIndent};
 `;
 
 export const Title = styled.Text`
