@@ -4,6 +4,7 @@ import {NavigationScreenConfigProps} from 'react-navigation';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {createTabIcon} from '../components';
 import {Container} from './styles';
 import mapStyle from '../../config/map-style.json';
 
@@ -15,7 +16,7 @@ type MapScreenState = {
 
 export class MapScreen extends React.Component<MapScreenProps, MapScreenState> {
     static navigationOptions = {
-        title: 'Map',
+        tabBarIcon: createTabIcon('place'),
     };
 
     state = {
