@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components/native';
 import {StatusBar} from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
+import {MaterialIcons} from '@expo/vector-icons';
 import {theme} from '../../consts';
 
 export const Container = styled.View`
@@ -23,8 +23,8 @@ export const CloseButtonWrapper = styled.TouchableOpacity`
     align-items: center;
 `;
 
-export const CloseButton = styled(Ionicons).attrs({
-    name: 'md-close',
+export const CloseButton = styled(MaterialIcons).attrs({
+    name: 'close',
     size: 28,
     color: 'white',
 })``;

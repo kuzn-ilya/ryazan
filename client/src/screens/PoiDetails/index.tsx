@@ -5,6 +5,7 @@ import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
 import {FooterButton, LoadingScreen, WindowHeader} from '../../components';
+import {messageBox} from '../../services';
 import {Routes, env} from '../../consts';
 
 import {
@@ -44,7 +45,7 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
 
     useEffect(() => {
         if (error) {
-            console.error(error); // TODO: show error via error service
+            messageBox.error(error);
             navigation.goBack(null);
         }
     }, [error]);
