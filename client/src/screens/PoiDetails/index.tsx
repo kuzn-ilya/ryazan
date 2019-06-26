@@ -73,7 +73,7 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
 
                 <FooterButton
                     label="Show on map"
-                    onPress={() => navigation.navigate(Routes.MAP)}
+                    onPress={() => navigation.navigate(Routes.MAP, {poiId: id})}
                 />
             </Container>
         );

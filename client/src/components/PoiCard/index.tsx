@@ -14,16 +14,23 @@ import {
     FlatIcons,
 } from './atoms';
 
+export enum PoiCardAction {
+    ShowOnMap,
+    ShowDetails,
+};
+
 export type PoiCardProps = {
     poi: Types.Poi,
+    action?: PoiCardAction,
 };
 
 export const PoiCard: React.FC<PoiCardProps> = ({
     poi: {id, name, description, photos},
+    action = PoiCardAction.ShowOnMap,
 }) => {
     const {navigate} = useNavigation();
 
-    const handlePress = () => navigate(Routes.POI_DETAILS, {poiId: id});
+    const handleShowDetails = () => navigate(Routes.POI_DETAILS, {poiId: id});
     const handleShowOnMap = () => navigate(Routes.MAP, {poiId: id});
     const handleShare = () => console.warn('Not yet implemented');
     const handleFavorite = () => console.warn('Not yet implemented');
@@ -32,12 +39,16 @@ export const PoiCard: React.FC<PoiCardProps> = ({
     const descriptionLine = description!.split('\n')[0];
 
     return (
-        <Card imageUri={photoUri} onPress={handlePress}>
+        <Card imageUri={photoUri} onPress={handleShowDetails}>
             <Title>{name}</Title>
             <Subtitle>{descriptionLine}</Subtitle>
 
             <ActionBar>
-                <Button label="Show on map" onPress={handleShowOnMap} />
+                {action === PoiCardAction.ShowOnMap &&
+                    <Button label="Show on map" onPress={handleShowOnMap} />}
+                {action === PoiCardAction.ShowDetails &&
+                    <Button label="Show details" onPress={handleShowDetails} />}
+
                 <FlatIcons>
                     <IconButton icon="share" onPress={handleShare} />
                     <IconButton icon="favorite-border" onPress={handleFavorite} />

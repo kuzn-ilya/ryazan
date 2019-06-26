@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
+import _ from 'lodash';
 import {PoiCard, createTabIcon} from '../../components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
@@ -24,12 +25,7 @@ const GET_POIS = gql`
 
 export const PoiScreen: NavigationScreenComponent = () => {
     const {data, loading, refetch, error} = useQuery<Types.Query>(GET_POIS);
-
-    useEffect(() => {
-        if (error) {
-            messageBox.error(error);
-        }
-    }, [error]);
+    useEffect(_.partial(messageBox.error, error), [error]);
 
     if (!(data && data.pois)) {
         return null;

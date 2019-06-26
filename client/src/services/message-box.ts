@@ -1,10 +1,10 @@
 import {Alert} from 'react-native';
 
-export const info = (message: string) =>
-    Alert.alert('', message);
+export const info = (msg?: string) =>
+    msg && Alert.alert('', msg);
 
-export const warn = (message: string) =>
-    Alert.alert('Warning', message);
+export const warn = (msg?: string) =>
+    msg && Alert.alert('Warning', msg);
 
-export const error = (err: Error) =>
-    Alert.alert('Error', err.message);
+export const error = (err?: Error) =>
+    err && Alert.alert('Error', err.message);
