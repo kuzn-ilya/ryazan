@@ -11,16 +11,19 @@
     "comment": ""
   },
   "attributes": {
-    "poi": {
-      "model": "poi",
-      "via": "routeitem"
-    },
     "order": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "route": {
       "model": "route",
-      "via": "routeitems"
+      "via": "routeitems",
+      "required": true
+    },
+    "poi": {
+      "model": "poi",
+      "via": "routeitems",
+      "required": true
     }
   }
 }

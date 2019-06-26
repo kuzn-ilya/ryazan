@@ -12,11 +12,13 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "pois": {
       "collection": "poi",
-      "via": "category"
+      "via": "category",
+      "required": true
     }
   }
 }

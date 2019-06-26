@@ -7,21 +7,25 @@
   },
   "options": {
     "increments": true,
-    "timestamps": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
     "comment": ""
   },
   "attributes": {
     "content": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
-    },
-    "poi": {
-      "model": "poi",
-      "via": "photos"
+      "plugin": "upload",
+      "required": true
     },
     "route": {
       "model": "route",
+      "via": "photos"
+    },
+    "poi": {
+      "model": "poi",
       "via": "photos"
     }
   }

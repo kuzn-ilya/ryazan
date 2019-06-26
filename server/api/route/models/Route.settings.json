@@ -15,17 +15,18 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
       "type": "string"
     },
-    "photos": {
-      "collection": "photo",
-      "via": "route"
-    },
     "routeitems": {
       "collection": "routeitem",
+      "via": "route"
+    },
+    "photos": {
+      "collection": "photo",
       "via": "route"
     }
   }

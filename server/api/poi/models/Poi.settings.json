@@ -15,27 +15,31 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "latitude": {
-      "type": "float"
+      "type": "float",
+      "required": true
     },
     "longitude": {
-      "type": "float"
+      "type": "float",
+      "required": true
     },
     "category": {
+      "required": true,
       "model": "category",
       "via": "pois"
     },
     "description": {
       "type": "text"
     },
-    "photos": {
-      "collection": "photo",
+    "routeitems": {
+      "collection": "routeitem",
       "via": "poi"
     },
-    "routeitem": {
-      "model": "routeitem",
+    "photos": {
+      "collection": "photo",
       "via": "poi"
     }
   }
