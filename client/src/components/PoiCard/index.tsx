@@ -5,6 +5,7 @@ import * as Types from '../../types/graphql';
 import {Button} from '../Button';
 import {IconButton} from '../IconButton';
 import {Card} from '../Card';
+import {sharePoi} from '../../services';
 import {Routes, env} from '../../consts';
 
 import {
@@ -24,15 +25,12 @@ export type PoiCardProps = {
     action?: PoiCardAction,
 };
 
-export const PoiCard: React.FC<PoiCardProps> = ({
-    poi: {id, name, description, photos},
-    action = PoiCardAction.ShowOnMap,
-}) => {
+export const PoiCard: React.FC<PoiCardProps> = ({poi, action}) => {
+    const {id, name, description, photos} = poi;
     const {navigate} = useNavigation();
 
     const handleShowDetails = () => navigate(Routes.POI_DETAILS, {poiId: id});
     const handleShowOnMap = () => navigate(Routes.MAP, {poiId: id});
-    const handleShare = () => console.warn('Not yet implemented');
     const handleFavorite = () => console.warn('Not yet implemented');
 
     const photoUri = env.apiUrl + _.get(photos, '0.content.url');
@@ -50,10 +48,14 @@ export const PoiCard: React.FC<PoiCardProps> = ({
                     <Button label="Show details" onPress={handleShowDetails} />}
 
                 <FlatIcons>
-                    <IconButton icon="share" onPress={handleShare} />
+                    <IconButton icon="share" onPress={() => sharePoi(poi)} />
                     <IconButton icon="favorite-border" onPress={handleFavorite} />
                 </FlatIcons>
             </ActionBar>
         </Card>
     );
+};
+
+PoiCard.defaultProps = {
+    action: PoiCardAction.ShowOnMap,
 };
