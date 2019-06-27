@@ -8,4 +8,5 @@ export enum Routes {
     POI_DETAILS = 'Poi Details',
     ROUTES = 'Routes',
     FAVORITES = 'Favorites',
+    CATEGORIES = 'Categories',
 }
