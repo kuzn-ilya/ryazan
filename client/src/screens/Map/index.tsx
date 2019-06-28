@@ -5,6 +5,7 @@ import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import MapView, {Marker, MapViewProps, PROVIDER_GOOGLE} from 'react-native-maps';
 import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader, Filter} from '../../components';
+import {LoadingIndicator} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {Map} from './atoms';
@@ -46,7 +47,7 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
     const [filter, setFilter] = useState<Filter>({search: '', categories: []});
     const mapRef = useRef<MapView>(null);
 
-    const {data, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
+    const {data, loading, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
     const pois = data && data.pois;
 
@@ -110,6 +111,8 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
                     />
                 )}
             </Map>
+
+            {loading && <LoadingIndicator />}
 
             {selectedMarker &&
                 <Modal onClose={unselectMarker}>
