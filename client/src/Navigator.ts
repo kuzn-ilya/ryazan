@@ -6,6 +6,7 @@ import {
 } from 'react-navigation';
 
 import {
+    FilterScreen,
     AboutScreen,
     FavoritesScreen,
     MapScreen,
@@ -38,6 +39,7 @@ const Tabs = createBottomTabNavigator({
 const Stack = createStackNavigator({
     [Routes.TABS]: Tabs,
     [Routes.POI_DETAILS]: PoiDetailsScreen,
+    [Routes.FILTER]: FilterScreen,
 }, {
     navigationOptions: {
         drawerLabel: () => null,

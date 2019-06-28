@@ -19,10 +19,10 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilt
     const navigation = useNavigation();
 
     const selectCategories = () =>
-        navigation.navigate(Routes.CATEGORIES, {
-            categories: filter.categories,
-            onSubmit: (categories: string[]) =>
-                onFilterChange({...filter, categories}),
+        navigation.navigate(Routes.FILTER, {
+            initialValue: filter,
+            onSubmit: (value: {}) =>
+                onFilterChange({...filter, ...value}),
         });
 
     return (
