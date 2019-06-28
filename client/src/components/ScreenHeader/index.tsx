@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import {TextInput, Keyboard, BackHandler, Platform} from 'react-native';
 import {useNavigation} from 'react-navigation-hooks';
 import {IconButton} from '../IconButton';
-import {Container, Content, Title} from './atoms';
+import {Container, Content, Title, SearchInput} from './atoms';
 import {Routes} from '../../consts';
 
 export type Filter = {
@@ -17,6 +18,37 @@ export type ScreenHeaderProps = {
 
 export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilterChange}) => {
     const navigation = useNavigation();
+    const [searchBarShown, setSearchBarShown] = useState(false);
+    const searchInputRef = useRef<TextInput>(null);
+
+    const hideSearchBar = () => {
+        setSearchBarShown(false);
+        onFilterChange({...filter, search: ''});
+    };
+
+    useEffect(() => {
+        const keyboardHideEvent = Platform.OS === 'ios'
+            ? 'keyboardWillHide'
+            : 'keyboardDidHide';
+
+        const handlers = [
+            BackHandler.addEventListener('hardwareBackPress', () => {
+                hideSearchBar();
+                return searchBarShown;
+            }),
+            Keyboard.addListener(keyboardHideEvent, () => {
+                if (searchInputRef.current) {
+                    searchInputRef.current.blur();
+                }
+
+                if (!filter.search) {
+                    hideSearchBar();
+                }
+            }),
+        ];
+
+        return () => handlers.forEach(handler => handler.remove());
+    });
 
     const selectCategories = () =>
         navigation.navigate(Routes.FILTER, {
@@ -25,16 +57,46 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilt
                 onFilterChange({...filter, ...value}),
         });
 
-    return (
-        <Container>
+    const handleSearchChange = (search: string) =>
+        onFilterChange({...filter, search});
+
+    const renderSearchBar = () =>
+        <>
+            <IconButton
+                icon="close"
+                onPress={hideSearchBar}
+            />
+
+            <Content>
+                <SearchInput
+                    ref={searchInputRef}
+                    autoFocus
+                    value={filter.search}
+                    onChangeText={handleSearchChange}
+                />
+            </Content>
+        </>
+
+    const renderTitle = () =>
+        <>
             <IconButton
                 icon="menu"
                 onPress={() => navigation.toggleDrawer()}
             />
 
             <Content>
-                {title && <Title>{title}</Title>}
+                <Title>{title}</Title>
             </Content>
+
+            <IconButton
+                icon="search"
+                onPress={() => setSearchBarShown(true)}
+            />
+        </>
+
+    return (
+        <Container>
+            {searchBarShown ? renderSearchBar() : renderTitle()}
 
             <IconButton
                 icon="filter-list"
