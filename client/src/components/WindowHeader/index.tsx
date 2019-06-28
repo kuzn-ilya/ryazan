@@ -1,13 +1,17 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
 import {HeaderProps} from 'react-navigation';
-import {Container, CloseButtonWrapper, CloseButton} from './atoms';
+import {IconButton} from '../IconButton';
+import {Container, Content, Title} from './atoms';
 
-export const WindowHeader: React.FC<HeaderProps> = ({navigation}) =>
+export const WindowHeader: React.FC<HeaderProps> = ({navigation, scene}) =>
     <Container>
-        <StatusBar barStyle="light-content" />
+        <IconButton
+            icon="close"
+            color="white"
+            onPress={() => navigation.goBack(null)}
+        />
 
-        <CloseButtonWrapper onPress={() => navigation.goBack(null)}>
-            <CloseButton />
-        </CloseButtonWrapper>
+        <Content>
+            <Title>{scene.descriptor.options.title}</Title>
+        </Content>
     </Container>

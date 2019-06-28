@@ -1,27 +1,27 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet} from 'react-native';
 import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import MapView, {Marker, MapViewProps, PROVIDER_GOOGLE} from 'react-native-maps';
-import {createTabIcon, PoiCard, Modal, PoiCardAction} from '../../components';
+import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader, Filter} from '../../components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
-import {Container, Map} from './atoms';
+import {Map} from './atoms';
 import mapStyle from '../../../config/map-style.json';
 
 const GET_POIS = gql`
-    query {
-        pois {
+    query($search: String!) {
+        pois(
+            where: {
+                name_contains: $search
+            }
+        ) {
             id
             name
             description
             latitude
             longitude
-            category {
-                id
-            }
             photos {
                 content {
                     url
@@ -43,11 +43,13 @@ type MapScreenParams = {
 };
 
 export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigation}) => {
-    const {data, error} = useQuery<Types.Query>(GET_POIS);
+    const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const mapRef = useRef<MapView>(null);
+
+    const {data, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
     const pois = data && data.pois;
 
-    const mapRef = useRef<MapView>(null);
     const [selectedMarker, setSelectedMarker] = useState<Types.Poi | null>(null);
     const unselectMarker = () => setSelectedMarker(null);
 
@@ -82,10 +84,14 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
     };
 
     return (
-        <Container>
+        <>
+            <ScreenHeader
+                filter={filter}
+                onFilterChange={setFilter}
+            />
+
             <Map
                 ref={mapRef}
-                style={StyleSheet.absoluteFillObject}
                 provider={PROVIDER_GOOGLE}
                 customMapStyle={mapStyle}
                 initialRegion={initialRegion}
@@ -110,7 +116,7 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
                     <PoiCard poi={selectedMarker} action={PoiCardAction.ShowDetails} />
                 </Modal>
             }
-        </Container>
+        </>
     );
 };
 

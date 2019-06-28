@@ -1,3 +1,4 @@
+export * from './Filter';
 export * from './AboutScreen';
 export * from './FavoritesScreen';
 export * from './HomeScreen';
