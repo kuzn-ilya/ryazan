@@ -17,13 +17,11 @@
     },
     "route": {
       "model": "route",
-      "via": "routeitems",
-      "required": true
+      "via": "routeitems"
     },
     "poi": {
       "model": "poi",
-      "via": "routeitems",
-      "required": true
+      "via": "routeitems"
     }
   }
 }

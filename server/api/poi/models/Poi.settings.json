@@ -27,7 +27,6 @@
       "required": true
     },
     "category": {
-      "required": true,
       "model": "category",
       "via": "pois"
     },
