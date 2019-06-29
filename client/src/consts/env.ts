@@ -1,3 +1,3 @@
 import {API_URL} from 'react-native-dotenv';
 
-export const env = {apiUrl: API_URL};
+export let env = {apiUrl: API_URL};

@@ -33,7 +33,10 @@ export const PoiCard: React.FC<PoiCardProps> = ({poi, action}) => {
     const handleShowOnMap = () => navigate(Routes.MAP, {poiId: id});
     const handleFavorite = () => console.warn('Not yet implemented');
 
-    const photoUri = env.apiUrl + _.get(photos, '0.content.url');
+    const provider = _.get(photos, '0.content.provider');
+    const url = _.get(photos, '0.content.url');
+
+    const photoUri = (provider === 'local' ? env.apiUrl : "") + url;
     const descriptionLine = description!.split('\n')[0];
 
     return (
