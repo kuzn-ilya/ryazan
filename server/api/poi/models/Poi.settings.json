@@ -33,12 +33,19 @@
     "description": {
       "type": "text"
     },
-    "routeitems": {
-      "collection": "routeitem",
-      "via": "poi"
+    "street": {
+      "model": "street",
+      "via": "pois"
+    },
+    "building": {
+      "type": "string"
     },
     "photos": {
       "collection": "photo",
+      "via": "poi"
+    },
+    "routeitems": {
+      "collection": "routeitem",
       "via": "poi"
     }
   }

@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "streets",
+  "info": {
+    "name": "street",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "unique": true,
+      "required": true,
+      "type": "string"
+    },
+    "pois": {
+      "collection": "poi",
+      "via": "street"
+    }
+  }
+}

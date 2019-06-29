@@ -21,12 +21,12 @@
     "description": {
       "type": "string"
     },
-    "routeitems": {
-      "collection": "routeitem",
-      "via": "route"
-    },
     "photos": {
       "collection": "photo",
+      "via": "route"
+    },
+    "routeitems": {
+      "collection": "routeitem",
       "via": "route"
     }
   }

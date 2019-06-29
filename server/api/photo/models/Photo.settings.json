@@ -27,6 +27,9 @@
     "poi": {
       "model": "poi",
       "via": "photos"
+    },
+    "name": {
+      "type": "string"
     }
   }
 }
