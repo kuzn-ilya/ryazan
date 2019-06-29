@@ -56,7 +56,10 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
 
     if (data && data.poi) {
         const {name, description, photos} = data.poi;
-        const photoUri = env.apiUrl + _.get(photos, '0.content.url');
+
+        const provider = _.get(photos, '0.content.provider');
+        const url = _.get(photos, '0.content.url');
+        const photoUri = (provider === 'local' ? env.apiUrl : "") + url;
         const descriptionLines = (description || '').split('\n');
 
         return (
