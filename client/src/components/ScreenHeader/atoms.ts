@@ -6,7 +6,7 @@ export const Container = styled(Header).attrs({
     statusBarStyle: 'dark-content',
 })`
     background-color: white;
-    elevation: 3;
+    ${theme.defaultShadow}
 `;
 
 export const Content = styled.View`

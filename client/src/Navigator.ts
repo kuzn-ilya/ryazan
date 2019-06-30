@@ -28,7 +28,7 @@ const Tabs = createBottomTabNavigator({
         activeTintColor: theme.red,
         inactiveTintColor: theme.darkGrey,
         style: {
-            height: 60,
+            height: theme.footerHeight,
         },
     },
     navigationOptions: {
