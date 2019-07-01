@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Label} from './atoms';
+import {Container, TouchableWrapper, Label} from './atoms';
 
 export type FooterButtonProps = {
     label: string,
@@ -7,6 +7,8 @@ export type FooterButtonProps = {
 }
 
 export const FooterButton: React.FC<FooterButtonProps> = ({label, onPress}) =>
-    <Container onPress={onPress}>
-        <Label>{label}</Label>
+    <Container>
+        <TouchableWrapper onPress={onPress}>
+            <Label>{label}</Label>
+        </TouchableWrapper>
     </Container>

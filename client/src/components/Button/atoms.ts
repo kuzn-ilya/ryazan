@@ -7,9 +7,13 @@ export const Container = styled.TouchableOpacity.attrs({
     background-color: ${theme.red};
     height: 40;
     border-radius: 2;
-    elevation: 5;
     justify-content: center;
     align-items: center;
+    elevation: 5;
+    shadow-color: black;
+    shadow-offset: 0 2px;
+    shadow-opacity: 0.25;
+    shadow-radius: 3.84;
 `;
 
 export const Label = styled.Text`

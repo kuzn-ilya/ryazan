@@ -1,23 +1,21 @@
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 import {FlattenSimpleInterpolation} from 'styled-components';
-import {StatusBar} from 'react-native';
-
-export const headerHeight = 60;
+import SafeAreaView from 'react-native-safe-area-view';
+import {theme} from '../../consts';
 
 export type ContainerStyleProps = {
     style?: FlattenSimpleInterpolation,
 };
 
-export const Container = styled.View<ContainerStyleProps>`
+export const Container = styled(SafeAreaView).attrs({
+    forceInset: {
+        top: 'always',
+        bottom: 'never',
+        horizontal: 'always',
+    },
+})<ContainerStyleProps>`
     align-items: stretch;
     flex-direction: row;
-    ${() => {
-        const statusBarHeight = StatusBar.currentHeight || 0;
-
-        return css`
-            height: ${headerHeight + statusBarHeight};
-            padding-top: ${statusBarHeight};
-        `;
-    }}
+    height: ${theme.headerHeight};
     ${props => props.style}
 `;

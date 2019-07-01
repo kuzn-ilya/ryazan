@@ -10,7 +10,7 @@ export const Container = styled.TouchableOpacity.attrs({
     width: 100%;
     height: 360;
     border-radius: ${borderRadius};
-    elevation: 5;
+    ${theme.defaultShadow}
 `;
 
 export const Picture = styled.Image`
