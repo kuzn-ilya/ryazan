@@ -4,7 +4,7 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {CheckBox, FooterButton, WindowHeader, Filter} from '../../components';
+import {CheckBox, FooterButton, Filter} from '../../components';
 import {messageBox} from '../../services';
 import {Content} from './atoms';
 
@@ -63,5 +63,4 @@ export const FilterScreen: NavigationScreenComponent<FilterScreenParams> = ({nav
 
 FilterScreen.navigationOptions = {
     title: 'Filter',
-    header: WindowHeader,
 };

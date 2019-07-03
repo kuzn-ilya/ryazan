@@ -4,7 +4,7 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {FooterButton, LoadingScreen, WindowHeader} from '../../components';
+import {FooterButton, LoadingScreen} from '../../components';
 import {messageBox} from '../../services';
 import {Routes, env} from '../../consts';
 
@@ -83,8 +83,4 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
     }
 
     return null;
-};
-
-PoiDetailsScreen.navigationOptions = {
-    header: WindowHeader,
 };
