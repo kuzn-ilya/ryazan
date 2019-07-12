@@ -1,17 +1,23 @@
 import React from 'react';
-import {HeaderProps} from 'react-navigation';
-import {IconButton} from '../IconButton';
-import {Container, Content, Title} from './atoms';
+import {StatusBar} from 'react-native';
+import {NavigationStackRouterConfig} from 'react-navigation';
+import {MaterialIcons} from '@expo/vector-icons';
+import {theme} from '../../consts';
 
-export const WindowHeader: React.FC<HeaderProps> = ({navigation, scene}) =>
-    <Container>
-        <IconButton
-            icon="close"
-            color="white"
-            onPress={() => navigation.goBack(null)}
-        />
+const headerBackImage = <>
+    <StatusBar barStyle="light-content" />
+    <MaterialIcons name="close" size={theme.iconSize} color="white" />
+</>
 
-        <Content>
-            <Title>{scene.descriptor.options.title}</Title>
-        </Content>
-    </Container>
+export const windowHeaderConfig: NavigationStackRouterConfig['defaultNavigationOptions'] = {
+    headerStyle: {
+        height: theme.headerHeight,
+        backgroundColor: theme.windowHeaderColor,
+    },
+    headerTintColor: 'white',
+    headerBackImage,
+    headerBackTitle: null,
+    headerTitleStyle: {
+        textTransform: 'uppercase',
+    },
+};

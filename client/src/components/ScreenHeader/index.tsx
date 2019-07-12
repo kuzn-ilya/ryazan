@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {TextInput, Keyboard, BackHandler, Platform} from 'react-native';
+import {TextInput, Keyboard, BackHandler, Platform, StatusBar} from 'react-native';
 import {useNavigation} from 'react-navigation-hooks';
 import {IconButton} from '../IconButton';
 import {Container, Content, Title, SearchInput} from './atoms';
@@ -96,6 +96,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilt
 
     return (
         <Container>
+            <StatusBar barStyle="dark-content" />
             {searchBarShown ? renderSearchBar() : renderTitle()}
 
             <IconButton

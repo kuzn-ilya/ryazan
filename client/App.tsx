@@ -6,7 +6,7 @@ import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
 import {AppNavigator} from './src/Navigator';
 import {env} from './src/consts';
-import { messageBox } from './src/services';
+import {messageBox} from './src/services';
 
 const client = new ApolloClient({
     uri: `${env.apiUrl}/graphql`,
