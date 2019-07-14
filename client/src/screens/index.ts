@@ -1,6 +1,6 @@
 export * from './Filter';
 export * from './AboutScreen';
-export * from './FavoritesScreen';
+export * from './Favorites';
 export * from './HomeScreen';
 export * from './Map';
 export * from './PoiDetails';
