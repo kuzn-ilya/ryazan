@@ -23,6 +23,10 @@ const GET_POIS = gql`
             description
             latitude
             longitude
+            building
+            street {
+                name
+            }
             photos {
                 content {
                     url

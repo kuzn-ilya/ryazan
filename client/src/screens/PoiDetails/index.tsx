@@ -7,6 +7,7 @@ import * as Types from '../../types/graphql';
 import {FooterButton, LoadingScreen} from '../../components';
 import {messageBox} from '../../services';
 import {Routes, env} from '../../consts';
+import {formatAddress} from '../../utils';
 
 import {
     Container,
@@ -23,6 +24,10 @@ const GET_POI = gql`
         poi(id: $id) {
             name
             description
+            building
+            street {
+                name
+            }
             photos {
                 content {
                     url
@@ -55,7 +60,7 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
     }
 
     if (data && data.poi) {
-        const {name, description, photos} = data.poi;
+        const {name, description, photos, street, building} = data.poi;
 
         const provider = _.get(photos, '0.content.provider');
         const url = _.get(photos, '0.content.url');
@@ -69,7 +74,7 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
 
                     <Content>
                         <Title>{name}</Title>
-                        <Subtitle>Here goes the address</Subtitle>
+                        <Subtitle>{formatAddress({street, building})}</Subtitle>
                         {descriptionLines.map(line => <Description key={line}>{line}</Description>)}
                     </Content>
                 </Scroll>
