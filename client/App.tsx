@@ -7,6 +7,7 @@ import * as Font from 'expo-font';
 import {AppNavigator} from './src/Navigator';
 import {env} from './src/consts';
 import {messageBox} from './src/services';
+import {FavoritesProvider} from './src/providers';
 
 const client = new ApolloClient({
     uri: `${env.apiUrl}/graphql`,
@@ -35,7 +36,9 @@ const App = () => {
     return (
         <ApolloProvider client={client}>
             <ApolloHooksProvider client={client}>
-                <AppNavigator />
+                <FavoritesProvider>
+                    <AppNavigator />
+                </FavoritesProvider>
             </ApolloHooksProvider>
         </ApolloProvider>
     );

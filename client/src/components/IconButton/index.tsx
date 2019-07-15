@@ -5,7 +5,7 @@ import {Container, Icon} from './atoms';
 export type IconButtonProps = {
     icon: string,
     color?: string,
-    onPress: () => void,
+    onPress?: () => void,
 };
 
 export const IconButton: React.FC<IconButtonProps> = ({icon, color, onPress}) =>

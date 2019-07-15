@@ -6,7 +6,8 @@ import {Button} from '../Button';
 import {IconButton} from '../IconButton';
 import {Card} from '../Card';
 import {sharePoi} from '../../services';
-import {Routes, env} from '../../consts';
+import {useFavorites} from '../../providers';
+import {Routes, env, theme} from '../../consts';
 
 import {
     Title,
@@ -28,10 +29,12 @@ export type PoiCardProps = {
 export const PoiCard: React.FC<PoiCardProps> = ({poi, action}) => {
     const {id, name, description, photos} = poi;
     const {navigate} = useNavigation();
+    const {isFavorite, addFavorite, removeFavorite} = useFavorites();
 
     const handleShowDetails = () => navigate(Routes.POI_DETAILS, {poiId: id});
     const handleShowOnMap = () => navigate(Routes.MAP, {poiId: id});
-    const handleFavorite = () => console.warn('Not yet implemented');
+    const handleAddFavorite = () => addFavorite(poi);
+    const handleRemoveFavorite = () => removeFavorite(poi);
 
     const provider = _.get(photos, '0.content.provider');
     const url = _.get(photos, '0.content.url');
@@ -52,7 +55,9 @@ export const PoiCard: React.FC<PoiCardProps> = ({poi, action}) => {
 
                 <FlatIcons>
                     <IconButton icon="share" onPress={() => sharePoi(poi)} />
-                    <IconButton icon="favorite-border" onPress={handleFavorite} />
+                    {isFavorite(poi)
+                        ? <IconButton icon="favorite" color={theme.red}  onPress={handleRemoveFavorite} />
+                        : <IconButton icon="favorite-border" onPress={handleAddFavorite} />}
                 </FlatIcons>
             </ActionBar>
         </Card>
