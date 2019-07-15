@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:11
+    restart: always
+    expose:
+      - 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - database
+    ports:
+      - 5050:5050
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+      PGADMIN_LISTEN_PORT: 5050
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend.dockerfile
+    depends_on:
+      - database
+    environment:
+      DATABASE_HOST: database
+    ports:
+      - 1337:1337
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+
