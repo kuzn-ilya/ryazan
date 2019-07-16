@@ -8,9 +8,9 @@ export type Favorite = Types.Poi | Types.Route;
 
 type FavoritesContextType = {
     favorites: Favorite[],
-    isFavorite: (item: Types.Poi) => boolean,
-    addFavorite: (item: Types.Poi) => void,
-    removeFavorite: (item: Types.Poi) => void,
+    isFavorite: (item: Favorite) => boolean,
+    addFavorite: (item: Favorite) => void,
+    removeFavorite: (item: Favorite) => void,
 };
 
 const favoritesStorageKey = 'favorites';
@@ -28,11 +28,11 @@ export const FavoritesProvider: React.FC = ({children}) => {
     const [favorites, setFavorites] = useState(defaultValue.favorites);
 
     useEffect(() => {
-      AsyncStorage.getItem(favoritesStorageKey)
+        AsyncStorage.getItem(favoritesStorageKey)
           .then(data => data ? JSON.parse(data) : [])
           .then(setFavorites)
           .catch(messageBox.error);
-    });
+    }, []);
 
     const storeFavorites = (newlist: Favorite[]) => {
         const data = JSON.stringify(newlist);
@@ -47,7 +47,8 @@ export const FavoritesProvider: React.FC = ({children}) => {
             _.some(favorites, {__typename, id}),
         addFavorite: (item) => {
             const {__typename, id} = item;
-            const newlist = _.unionBy(favorites, [item], {__typename, id});
+            const newlist = _.reject(favorites, {__typename, id});
+            newlist.push(item);
             storeFavorites(newlist);
         },
         removeFavorite: ({__typename, id}) => {

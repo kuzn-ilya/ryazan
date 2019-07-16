@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {theme} from '../../consts';
 
 export const Title = styled.Text`
-    font-size: 24;
+    font-size: 20;
 `;
 
 export const Subtitle = styled.Text.attrs({

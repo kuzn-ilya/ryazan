@@ -6,8 +6,8 @@ import _ from 'lodash';
 import * as Types from '../../types/graphql';
 import {FooterButton, LoadingScreen} from '../../components';
 import {messageBox} from '../../services';
-import {Routes, env} from '../../consts';
-import {formatAddress} from '../../utils';
+import {Routes} from '../../consts';
+import {formatAddress, getPhotoUri} from '../../utils';
 
 import {
     Container,
@@ -62,9 +62,7 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
     if (data && data.poi) {
         const {name, description, photos, street, building} = data.poi;
 
-        const provider = _.get(photos, '0.content.provider');
-        const url = _.get(photos, '0.content.url');
-        const photoUri = (provider === 'local' ? env.apiUrl : "") + url;
+        const photoUri = getPhotoUri(photos);
         const descriptionLines = (description || '').split('\n');
 
         return (
