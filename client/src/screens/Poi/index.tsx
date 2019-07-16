@@ -10,7 +10,7 @@ import {List, Separator} from './atoms';
 
 const GET_POIS = gql`
     query {
-        pois {
+        pois(sort: "name") {
             id
             name
             description

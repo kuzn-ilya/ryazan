@@ -10,7 +10,7 @@ import {List, Separator} from './atoms';
 
 const GET_ROUTES = gql`
     query {
-        routes {
+        routes(sort: "name") {
             id
             name
             description
