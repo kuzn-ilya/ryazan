@@ -17,10 +17,11 @@ import {List, Separator} from './atoms';
 
 export const FavoritesScreen: NavigationScreenComponent = () => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const search = filter.search.toLowerCase();
     const {favorites} = useFavorites();
 
     const data = _(favorites)
-        .filter(item => item.name.includes(filter.search))
+        .filter(item => item.name.toLowerCase().includes(search))
         .sortBy('name')
         .value();
 
