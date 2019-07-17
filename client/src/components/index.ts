@@ -7,6 +7,7 @@ export * from './IconButton';
 export * from './LoadingScreen';
 export * from './Modal';
 export * from './PoiCard';
+export * from './RouteCard';
 export * from './ScreenHeader';
 export * from './WindowHeader';
 export * from './TabIcon';

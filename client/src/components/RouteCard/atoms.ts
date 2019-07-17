@@ -13,17 +13,25 @@ export const Subtitle = styled.Text.attrs({
     margin-top: 10;
     font-size: 14;
     color: #999;
-    padding-bottom: ${theme.screenIndent};
+`;
+
+export const Content = styled.View`
+    flex: 1;
+    flexDirection: row;
+`;
+
+export const LeftColumn = styled.View`
+    flex: 1;
+`;
+
+export const RightColumn = styled.View`
+    width: ${theme.iconSize};
+    margin-left: ${theme.screenIndent};
+    align-items: center;
 `;
 
 export const ActionBar = styled.View`
+    margin-top: ${theme.screenIndent};
     flex-direction: row;
     justify-content: space-between;
-`;
-
-export const FlatIcons = styled.View`
-    flex-direction: row;
-    justify-content: space-between;
-    width: 90;
-    margin-right: 5;
 `;

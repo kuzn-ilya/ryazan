@@ -1,20 +1,36 @@
 import React, {useState} from 'react';
 import {View, ListRenderItem} from 'react-native';
 import {NavigationScreenComponent} from 'react-navigation';
-import {createTabIcon, PoiCard, ScreenHeader, Filter, PoiCardAction} from '../../components';
+import _ from 'lodash';
+
+import {
+    createTabIcon,
+    PoiCard,
+    RouteCard,
+    ScreenHeader,
+    Filter,
+    PoiCardAction,
+} from '../../components';
+
 import {Favorite, useFavorites} from '../../providers';
 import {List, Separator} from './atoms';
 
 export const FavoritesScreen: NavigationScreenComponent = () => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const search = filter.search.toLowerCase();
     const {favorites} = useFavorites();
 
-    const data = favorites.filter(item => item.name.includes(filter.search));
+    const data = _(favorites)
+        .filter(item => item.name.toLowerCase().includes(search))
+        .sortBy('name')
+        .value();
 
     const reanderItem: ListRenderItem<Favorite> = ({item}) => {
         switch (item.__typename) {
             case 'Poi':
                 return <PoiCard poi={item} action={PoiCardAction.ShowDetails} />;
+            case 'Route':
+                return <RouteCard route={item} />;
             default:
                 return <View />;
         }

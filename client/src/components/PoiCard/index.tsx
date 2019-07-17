@@ -7,7 +7,8 @@ import {IconButton} from '../IconButton';
 import {Card} from '../Card';
 import {sharePoi} from '../../services';
 import {useFavorites} from '../../providers';
-import {Routes, env, theme} from '../../consts';
+import {getPhotoUri} from '../../utils';
+import {Routes, theme} from '../../consts';
 
 import {
     Title,
@@ -26,26 +27,21 @@ export type PoiCardProps = {
     action?: PoiCardAction,
 };
 
-export const PoiCard: React.FC<PoiCardProps> = ({poi, action}) => {
+export const PoiCard: React.FC<PoiCardProps> = React.memo(({poi, action}) => {
     const {id, name, description, photos} = poi;
     const {navigate} = useNavigation();
     const {isFavorite, addFavorite, removeFavorite} = useFavorites();
+    const photoUri = getPhotoUri(photos);
 
     const handleShowDetails = () => navigate(Routes.POI_DETAILS, {poiId: id});
     const handleShowOnMap = () => navigate(Routes.MAP, {poiId: id});
     const handleAddFavorite = () => addFavorite(poi);
     const handleRemoveFavorite = () => removeFavorite(poi);
 
-    const provider = _.get(photos, '0.content.provider');
-    const url = _.get(photos, '0.content.url');
-
-    const photoUri = (provider === 'local' ? env.apiUrl : "") + url;
-    const descriptionLine = description!.split('\n')[0];
-
     return (
         <Card imageUri={photoUri} onPress={handleShowDetails}>
             <Title>{name}</Title>
-            <Subtitle>{descriptionLine}</Subtitle>
+            <Subtitle>{description}</Subtitle>
 
             <ActionBar>
                 {action === PoiCardAction.ShowOnMap &&
@@ -62,7 +58,7 @@ export const PoiCard: React.FC<PoiCardProps> = ({poi, action}) => {
             </ActionBar>
         </Card>
     );
-};
+});
 
 PoiCard.defaultProps = {
     action: PoiCardAction.ShowOnMap,

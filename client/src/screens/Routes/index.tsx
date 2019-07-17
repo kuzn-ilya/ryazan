@@ -3,19 +3,20 @@ import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
-import {PoiCard, createTabIcon, ScreenHeader, Filter} from '../../components';
+import {RouteCard, createTabIcon, ScreenHeader, Filter} from '../../components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {List, Separator} from './atoms';
 
-const GET_POIS = gql`
+const GET_ROUTES = gql`
     query {
-        pois(sort: "name") {
+        routes(sort: "name") {
             id
             name
             description
             photos {
                 content {
+                    provider
                     url
                 }
             }
@@ -23,29 +24,29 @@ const GET_POIS = gql`
     }
 `;
 
-export const PoiScreen: NavigationScreenComponent = () => {
+export const RoutesScreen: NavigationScreenComponent = () => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: []});
 
-    const {data, loading, refetch, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
+    const {data, loading, refetch, error} = useQuery<Types.Query>(GET_ROUTES, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
 
-    if (!(data && data.pois)) {
+    if (!(data && data.routes)) {
         return null;
     }
 
     return (
         <>
             <ScreenHeader
-                title="What to see"
+                title="Routes"
                 filter={filter}
                 onFilterChange={setFilter}
             />
 
-            <List<Types.Poi>
+            <List<Types.Route>
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <PoiCard poi={item} />}
+                renderItem={({item}) => <RouteCard route={item} />}
                 ItemSeparatorComponent={Separator}
-                data={data.pois as Types.Poi[]}
+                data={data.routes as Types.Route[]}
                 refreshing={loading}
                 onRefresh={refetch}
             />
@@ -53,6 +54,6 @@ export const PoiScreen: NavigationScreenComponent = () => {
     );
 };
 
-PoiScreen.navigationOptions = {
-    tabBarIcon: createTabIcon('format-list-bulleted'),
+RoutesScreen.navigationOptions = {
+    tabBarIcon: createTabIcon('directions-walk'),
 };
