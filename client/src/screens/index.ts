@@ -1,4 +1,4 @@
-export * from './AboutScreen';
+export * from './About';
 export * from './Favorites';
 export * from './HomeScreen';
 export * from './Filter';

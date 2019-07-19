@@ -19,6 +19,7 @@
         "@mapbox/geo-viewport": "0.4.0",
         "apollo-boost": "0.4.3",
         "expo": "33.0.7",
+        "expo-constants": "5.0.1",
         "expo-font": "5.0.1",
         "graphql": "14.4.2",
         "lodash": "4.17.14",
