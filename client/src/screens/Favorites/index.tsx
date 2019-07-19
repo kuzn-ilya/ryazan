@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, ListRenderItem} from 'react-native';
 import {NavigationScreenComponent} from 'react-navigation';
 import _ from 'lodash';
+import {EmptyList} from './components';
 
 import {
     createTabIcon,
@@ -44,12 +45,15 @@ export const FavoritesScreen: NavigationScreenComponent = () => {
                 onFilterChange={setFilter}
             />
 
-            <List<Favorite>
-                keyExtractor={item => item.id}
-                renderItem={reanderItem}
-                ItemSeparatorComponent={Separator}
-                data={data}
-            />
+            {data.length
+                ? <List<Favorite>
+                    keyExtractor={item => item.id}
+                    renderItem={reanderItem}
+                    ItemSeparatorComponent={Separator}
+                    data={data}
+                />
+                : <EmptyList />
+            }
         </>
     );
 };
