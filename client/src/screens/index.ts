@@ -1,6 +1,5 @@
 export * from './About';
 export * from './Favorites';
-export * from './HomeScreen';
 export * from './Filter';
 export * from './Map';
 export * from './Poi';
