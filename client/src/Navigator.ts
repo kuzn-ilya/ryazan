@@ -9,6 +9,7 @@ import {
 
 import {
     FilterScreen,
+    HistoryScreen,
     AboutScreen,
     FavoritesScreen,
     MapScreen,
@@ -42,6 +43,7 @@ const Stack = createStackNavigator({
     [Routes.TABS]: Tabs,
     [Routes.POI_DETAILS]: PoiDetailsScreen,
     [Routes.FILTER]: FilterScreen,
+    [Routes.HISTORY]: HistoryScreen,
     [Routes.ABOUT]: AboutScreen,
 }, {
     headerLayoutPreset: 'center',

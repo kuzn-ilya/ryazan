@@ -22,6 +22,7 @@ export const Sidebar = () => {
             </Header>
 
             <ItemList>
+                <Item label="История" onPress={() => navigate(Routes.HISTORY)} />
                 <Item label="О приложении" onPress={() => navigate(Routes.ABOUT)} />
             </ItemList>
         </Container>
