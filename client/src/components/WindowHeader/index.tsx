@@ -1,12 +1,12 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Platform} from 'react-native';
 import {NavigationStackRouterConfig} from 'react-navigation';
-import {MaterialIcons} from '@expo/vector-icons';
 import {theme} from '../../consts';
+import {CloseIcon} from './atoms';
 
 const headerBackImage = <>
     <StatusBar barStyle="light-content" />
-    <MaterialIcons name="close" size={theme.iconSize} color="white" />
+    <CloseIcon name="close" size={theme.iconSize} color="white" />
 </>
 
 export const windowHeaderConfig: NavigationStackRouterConfig['defaultNavigationOptions'] = {
