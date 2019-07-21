@@ -3,16 +3,16 @@ import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
-import MapView, {MapViewProps, PROVIDER_GOOGLE, Region, Marker} from 'react-native-maps';
+import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng} from 'react-native-maps';
 import Supercluster, { ClusterFeature } from 'supercluster';
 import GeoViewport from '@mapbox/geo-viewport';
 import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader, Filter} from '../../components';
-import {LoadingIndicator, PoiMarker, ClusterMarker} from './components';
+import {LoadingIndicator, PoiMarker, ClusterMarker, Controls} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {convertToFeature, regionToBoundingBox, PoiFeature} from './utils';
 import {initialMapRegion} from '../../consts';
-import {Map} from './atoms';
+import {MapContainer, Map} from './atoms';
 import mapStyle from '../../../config/map-style.json';
 
 const GET_POIS = gql`
@@ -46,6 +46,7 @@ type MapScreenParams = {
 
 export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigation}) => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const userLocation = useRef<LatLng>({longitude: 0, latitude: 0});
     const mapRef = useRef<MapView>(null);
 
     const {data, loading, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
@@ -93,6 +94,39 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
     const handleLayoutChange: MapViewProps['onLayout'] = ({nativeEvent: {layout}}) =>
         setDimentions(layout);
 
+    const handleUserLocationChange: MapViewProps['onUserLocationChange'] = (
+        {nativeEvent: {coordinate: {latitude, longitude}}},
+    ) => userLocation.current = {latitude, longitude};
+
+    const handleUserLocation = () => {
+        const {longitude, latitude} = userLocation.current;
+        if (mapRef.current && longitude && latitude) {
+            mapRef.current.animateCamera({
+                center: userLocation.current,
+            });
+        }
+    };
+
+    const handleZoomIn = () => {
+        if (mapRef.current) {
+            mapRef.current.animateToRegion({
+                ...currentRegion,
+                longitudeDelta: currentRegion.longitudeDelta * 0.5,
+                latitudeDelta: currentRegion.latitudeDelta * 0.5,
+            }, 250);
+        }
+    };
+
+    const handleZoomOut = () => {
+        if (mapRef.current) {
+            mapRef.current.animateToRegion({
+                ...currentRegion,
+                longitudeDelta: currentRegion.longitudeDelta / 0.5,
+                latitudeDelta: currentRegion.latitudeDelta / 0.5,
+            }, 250);
+        }
+    };
+
     const renderMarker = (feature: ClusterFeature<{}> | PoiFeature) => {
         const clusterFeature = feature as ClusterFeature<{}>;
 
@@ -123,20 +157,31 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
                 onFilterChange={setFilter}
             />
 
-            <Map
-                ref={mapRef}
-                provider={PROVIDER_GOOGLE}
-                customMapStyle={mapStyle}
-                initialRegion={initialMapRegion}
-                showsUserLocation
-                followsUserLocation
-                onLayout={handleLayoutChange}
-                onRegionChangeComplete={setCurrentRegion}
-            >
-                {features.map(renderMarker)}
-            </Map>
+            <MapContainer>
+                <Map
+                    ref={mapRef}
+                    provider={PROVIDER_GOOGLE}
+                    customMapStyle={mapStyle}
+                    initialRegion={initialMapRegion}
+                    showsUserLocation
+                    followsUserLocation
+                    showsMyLocationButton={false}
+                    toolbarEnabled={false}
+                    onLayout={handleLayoutChange}
+                    onRegionChangeComplete={setCurrentRegion}
+                    onUserLocationChange={handleUserLocationChange}
+                >
+                    {features.map(renderMarker)}
+                </Map>
 
-            {loading && <LoadingIndicator />}
+                <Controls
+                    onUserLocation={handleUserLocation}
+                    onZoomIn={handleZoomIn}
+                    onZoomOut={handleZoomOut}
+                />
+
+                {loading && <LoadingIndicator />}
+            </MapContainer>
 
             {selectedMarker &&
                 <Modal onClose={unselectMarker}>
