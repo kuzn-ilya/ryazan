@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Backdrop = styled.TouchableOpacity.attrs({
+export const Backdrop = styled.View.attrs({
     activeOpacity: 0,
 })`
     flex: 1;
