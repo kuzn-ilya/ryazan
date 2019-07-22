@@ -28,10 +28,7 @@ export const PoiScreen: NavigationScreenComponent = () => {
 
     const {data, loading, refetch, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
-
-    if (!(data && data.pois)) {
-        return null;
-    }
+    const pois = ((data && data.pois) || []) as Types.Poi[];
 
     return (
         <>
@@ -45,7 +42,7 @@ export const PoiScreen: NavigationScreenComponent = () => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <PoiCard poi={item} />}
                 ItemSeparatorComponent={Separator}
-                data={data.pois as Types.Poi[]}
+                data={pois}
                 refreshing={loading}
                 onRefresh={refetch}
             />

@@ -29,10 +29,7 @@ export const RoutesScreen: NavigationScreenComponent = () => {
 
     const {data, loading, refetch, error} = useQuery<Types.Query>(GET_ROUTES, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
-
-    if (!(data && data.routes)) {
-        return null;
-    }
+    const routes = ((data && data.pois) || []) as Types.Route[];
 
     return (
         <>
@@ -46,7 +43,7 @@ export const RoutesScreen: NavigationScreenComponent = () => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <RouteCard route={item} />}
                 ItemSeparatorComponent={Separator}
-                data={data.routes as Types.Route[]}
+                data={routes}
                 refreshing={loading}
                 onRefresh={refetch}
             />

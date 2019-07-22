@@ -2,6 +2,7 @@ export enum Routes {
     DRAWER = 'Drawer',
     STACK = 'Stack',
     TABS = 'Tabs',
+    HISTORY = 'History',
     ABOUT = 'About',
     MAP = 'Map',
     POI = 'Poi',

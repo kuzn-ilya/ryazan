@@ -1,4 +1,5 @@
-import {windowHeaderConfig} from './components';
+import {windowHeaderConfig, Sidebar} from './components';
+
 import {
     createBottomTabNavigator,
     createDrawerNavigator,
@@ -8,6 +9,7 @@ import {
 
 import {
     FilterScreen,
+    HistoryScreen,
     AboutScreen,
     FavoritesScreen,
     MapScreen,
@@ -41,17 +43,17 @@ const Stack = createStackNavigator({
     [Routes.TABS]: Tabs,
     [Routes.POI_DETAILS]: PoiDetailsScreen,
     [Routes.FILTER]: FilterScreen,
+    [Routes.HISTORY]: HistoryScreen,
+    [Routes.ABOUT]: AboutScreen,
 }, {
     headerLayoutPreset: 'center',
     defaultNavigationOptions: windowHeaderConfig,
-    navigationOptions: {
-        drawerLabel: () => null,
-    },
 });
 
 const Drawer = createDrawerNavigator({
     [Routes.STACK]: Stack,
-    [Routes.ABOUT]: AboutScreen,
+}, {
+    contentComponent: Sidebar,
 });
 
 export const AppNavigator = createAppContainer(Drawer);
