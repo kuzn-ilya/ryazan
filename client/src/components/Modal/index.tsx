@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal as RNModal} from 'react-native';
+import {Modal as RNModal, TouchableWithoutFeedback} from 'react-native';
 import {Backdrop} from './atoms';
 
 export type ModalProps = {
@@ -14,7 +14,9 @@ export const Modal: React.FC<ModalProps> = ({children, onClose}) =>
         onRequestClose={onClose}
         onDismiss={onClose}
     >
-        <Backdrop onPress={onClose}>
-            {children}
-        </Backdrop>
+        <TouchableWithoutFeedback onPress={onClose}>
+            <Backdrop>
+                {children}
+            </Backdrop>
+        </TouchableWithoutFeedback>
     </RNModal>
