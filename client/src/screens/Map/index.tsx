@@ -1,14 +1,18 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
-import MapView, {Marker, MapViewProps, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng} from 'react-native-maps';
+import Supercluster, { ClusterFeature } from 'supercluster';
+import GeoViewport from '@mapbox/geo-viewport';
 import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader, Filter} from '../../components';
-import {LoadingIndicator} from './components';
+import {LoadingIndicator, PoiMarker, ClusterMarker, Controls} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
-import {Map} from './atoms';
+import {convertToFeature, regionToBoundingBox, PoiFeature} from './utils';
+import {initialMapRegion} from '../../consts';
+import {MapContainer, Map} from './atoms';
 import mapStyle from '../../../config/map-style.json';
 
 const GET_POIS = gql`
@@ -36,27 +40,32 @@ const GET_POIS = gql`
     }
 `;
 
-const initialRegion = {
-    latitude: 54.629216,
-    longitude: 39.736375,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-};
-
 type MapScreenParams = {
     poiId: Types.Poi['id'],
 };
 
 export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigation}) => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const userLocation = useRef<LatLng>({longitude: 0, latitude: 0});
     const mapRef = useRef<MapView>(null);
 
     const {data, loading, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
-    const pois = data && data.pois;
+    const pois = ((data && data.pois) || []) as Types.Poi[];
 
+    const [currentRegion, setCurrentRegion] = useState(initialMapRegion);
+    const [dimentions, setDimentions] = useState({x: 0, y: 0, width: 1, height: 1});
     const [selectedMarker, setSelectedMarker] = useState<Types.Poi | null>(null);
     const unselectMarker = () => setSelectedMarker(null);
+
+    /* clusters */
+    const features = useMemo(() => {
+        const clusterer = new Supercluster<Types.Poi>();
+        clusterer.load(pois.map(convertToFeature));
+        const bbox = regionToBoundingBox(currentRegion);
+        const viewport = GeoViewport.viewport(bbox, [dimentions.width, dimentions.height]);
+        return clusterer.getClusters(bbox, viewport.zoom);
+    }, [pois, currentRegion, dimentions]);
 
     /* hides modal window if the user moves to a different screen */
     useEffect(() => {
@@ -82,10 +91,63 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
         });
     }, [pois, navigation.state.params]);
 
-    const handleMarkerPress: MapViewProps['onMarkerPress'] = ({nativeEvent: {id}}) => {
-        if (!data) return;
-        const marker = _.find(pois, {id}) || null;
-        setSelectedMarker(marker);
+    const handleLayoutChange: MapViewProps['onLayout'] = ({nativeEvent: {layout}}) =>
+        setDimentions(layout);
+
+    const handleUserLocationChange: MapViewProps['onUserLocationChange'] = (
+        {nativeEvent: {coordinate: {latitude, longitude}}},
+    ) => userLocation.current = {latitude, longitude};
+
+    const handleUserLocation = () => {
+        const {longitude, latitude} = userLocation.current;
+        if (mapRef.current && longitude && latitude) {
+            mapRef.current.animateCamera({
+                center: userLocation.current,
+            });
+        }
+    };
+
+    const handleZoomIn = () => {
+        if (mapRef.current) {
+            mapRef.current.animateToRegion({
+                ...currentRegion,
+                longitudeDelta: currentRegion.longitudeDelta * 0.5,
+                latitudeDelta: currentRegion.latitudeDelta * 0.5,
+            }, 250);
+        }
+    };
+
+    const handleZoomOut = () => {
+        if (mapRef.current) {
+            mapRef.current.animateToRegion({
+                ...currentRegion,
+                longitudeDelta: currentRegion.longitudeDelta / 0.5,
+                latitudeDelta: currentRegion.latitudeDelta / 0.5,
+            }, 250);
+        }
+    };
+
+    const renderMarker = (feature: ClusterFeature<{}> | PoiFeature) => {
+        const clusterFeature = feature as ClusterFeature<{}>;
+
+        if (clusterFeature.properties.cluster) {
+            return (
+                <ClusterMarker
+                    key={`cluster_${clusterFeature.id}`}
+                    feature={clusterFeature}
+                />
+            )
+        }
+
+        const poiFeature = feature as PoiFeature;
+
+        return (
+            <PoiMarker
+                key={poiFeature.properties.id}
+                feature={poiFeature}
+                onPress={() => setSelectedMarker(poiFeature.properties)}
+            />
+        )
     };
 
     return (
@@ -95,28 +157,31 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
                 onFilterChange={setFilter}
             />
 
-            <Map
-                ref={mapRef}
-                provider={PROVIDER_GOOGLE}
-                customMapStyle={mapStyle}
-                initialRegion={initialRegion}
-                showsUserLocation
-                followsUserLocation
-                onMarkerPress={handleMarkerPress}
-            >
-                {pois && pois.map(poi =>
-                    <Marker
-                        key={poi!.id}
-                        identifier={poi!.id}
-                        coordinate={{
-                            latitude: poi!.latitude,
-                            longitude: poi!.longitude,
-                        }}
-                    />
-                )}
-            </Map>
+            <MapContainer>
+                <Map
+                    ref={mapRef}
+                    provider={PROVIDER_GOOGLE}
+                    customMapStyle={mapStyle}
+                    initialRegion={initialMapRegion}
+                    showsUserLocation
+                    followsUserLocation
+                    showsMyLocationButton={false}
+                    toolbarEnabled={false}
+                    onLayout={handleLayoutChange}
+                    onRegionChangeComplete={setCurrentRegion}
+                    onUserLocationChange={handleUserLocationChange}
+                >
+                    {features.map(renderMarker)}
+                </Map>
 
-            {loading && <LoadingIndicator />}
+                <Controls
+                    onUserLocation={handleUserLocation}
+                    onZoomIn={handleZoomIn}
+                    onZoomOut={handleZoomOut}
+                />
+
+                {loading && <LoadingIndicator />}
+            </MapContainer>
 
             {selectedMarker &&
                 <Modal onClose={unselectMarker}>
