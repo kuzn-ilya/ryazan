@@ -29,7 +29,7 @@ export const RouteCard: React.FC<RouteCardProps> = React.memo(({route}) => {
     const photoUri = getPhotoUri(photos);
 
     const handleShowDetails = () => navigate(Routes.ROUTE_DETAILS, {routeId: id});
-    const handleShowOnMap = () => navigate(Routes.MAP);
+    const handleShowOnMap = () => navigate(Routes.MAP, {routeId: id});
     const handleAddFavorite = () => addFavorite(route);
     const handleRemoveFavorite = () => removeFavorite(route);
 

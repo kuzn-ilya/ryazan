@@ -15,6 +15,7 @@ import {
     MapScreen,
     PoiDetailsScreen,
     PoiScreen,
+    RouteDetailsScreen,
     RoutesScreen,
 } from './screens';
 
@@ -42,6 +43,7 @@ const Tabs = createBottomTabNavigator({
 const Stack = createStackNavigator({
     [Routes.TABS]: Tabs,
     [Routes.POI_DETAILS]: PoiDetailsScreen,
+    [Routes.ROUTE_DETAILS]: RouteDetailsScreen,
     [Routes.FILTER]: FilterScreen,
     [Routes.HISTORY]: HistoryScreen,
     [Routes.ABOUT]: AboutScreen,
