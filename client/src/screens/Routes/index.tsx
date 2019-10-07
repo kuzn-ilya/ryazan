@@ -29,7 +29,7 @@ export const RoutesScreen: NavigationScreenComponent = () => {
 
     const {data, loading, refetch, error} = useQuery<Types.Query>(GET_ROUTES, {variables: filter});
     useEffect(_.partial(messageBox.error, error), [error]);
-    const routes = ((data && data.pois) || []) as Types.Route[];
+    const routes = ((data && data.routes) || []) as Types.Route[];
 
     return (
         <>

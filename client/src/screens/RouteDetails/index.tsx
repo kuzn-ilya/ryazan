@@ -65,7 +65,7 @@ export const RouteDetailsScreen: NavigationScreenComponent<RouteDetailsScreenPar
 
                     <Content>
                         <Title>{name}</Title>
-                        <Description>{description}</Description>)}
+                        <Description>{description}</Description>
                     </Content>
                 </Scroll>
 
