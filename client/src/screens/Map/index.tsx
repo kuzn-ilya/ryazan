@@ -1,47 +1,22 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {NavigationScreenComponent} from 'react-navigation';
-import {useQuery} from 'react-apollo-hooks';
-import {gql} from 'apollo-boost';
 import _ from 'lodash';
-import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng} from 'react-native-maps';
+import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng, Polyline} from 'react-native-maps';
 import Supercluster, { ClusterFeature } from 'supercluster';
 import GeoViewport from '@mapbox/geo-viewport';
 import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader, Filter} from '../../components';
 import {LoadingIndicator, PoiMarker, ClusterMarker, Controls} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
-import {convertToFeature, regionToBoundingBox, PoiFeature} from './utils';
-import {initialMapRegion} from '../../consts';
+import {convertToFeature, regionToBoundingBox, PoiFeature, routeToPolyline} from './utils';
+import {initialMapRegion, theme} from '../../consts';
 import {MapContainer, Map} from './atoms';
+import {useData} from './use-data';
 import mapStyle from '../../../config/map-style.json';
-
-const GET_POIS = gql`
-    query($search: String!) {
-        pois(
-            where: {
-                name_contains: $search
-            }
-        ) {
-            id
-            name
-            description
-            latitude
-            longitude
-            building
-            street {
-                name
-            }
-            photos {
-                content {
-                    url
-                }
-            }
-        }
-    }
-`;
 
 type MapScreenParams = {
     poiId: Types.Poi['id'],
+    routeId: Types.Route['id'],
 };
 
 export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigation}) => {
@@ -49,9 +24,9 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
     const userLocation = useRef<LatLng>({longitude: 0, latitude: 0});
     const mapRef = useRef<MapView>(null);
 
-    const {data, loading, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
+    const routeId = navigation.getParam('routeId');
+    const {loading, error, isRoute, pois} = useData({routeId, filter});
     useEffect(_.partial(messageBox.error, error), [error]);
-    const pois = ((data && data.pois) || []) as Types.Poi[];
 
     const [currentRegion, setCurrentRegion] = useState(initialMapRegion);
     const [dimentions, setDimentions] = useState({x: 0, y: 0, width: 1, height: 1});
@@ -172,6 +147,15 @@ export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigatio
                     onUserLocationChange={handleUserLocationChange}
                 >
                     {features.map(renderMarker)}
+
+                    {isRoute &&
+                        <Polyline
+                            coordinates={routeToPolyline(pois)}
+                            strokeColor={theme.routeLineColor}
+                            strokeWidth={3}
+                            lineCap="round"
+                        />
+                    }
                 </Map>
 
                 <Controls

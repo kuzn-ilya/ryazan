@@ -27,3 +27,9 @@ export const regionToBoundingBox = (region: Region): BoundingBox => {
       region.latitude + region.latitudeDelta,
     ];
 };
+
+export const routeToPolyline = (pois: Types.Poi[]) =>
+    pois.map(poi => ({
+        longitude: poi.longitude,
+        latitude: poi.latitude,
+    }));

@@ -7,6 +7,7 @@ export const headerHeight = 50;
 export const footerHeight = 50;
 export const screenIndent = '16px';
 export const windowHeaderColor = '#c0ae91';
+export const routeLineColor = '#0000ff';
 export const iconSize = 26;
 
 export const defaultShadow = `
