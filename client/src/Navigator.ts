@@ -14,7 +14,7 @@ import {
     FavoritesScreen,
     MapScreen,
     PoiDetailsScreen,
-    PoiScreen,
+    PoisScreen,
     RouteDetailsScreen,
     RoutesScreen,
 } from './screens';
@@ -23,7 +23,7 @@ import {Routes, theme} from './consts';
 
 const Tabs = createBottomTabNavigator({
     [Routes.MAP]: MapScreen,
-    [Routes.POI]: PoiScreen,
+    [Routes.POIS]: PoisScreen,
     [Routes.ROUTES]: RoutesScreen,
     [Routes.FAVORITES]: FavoritesScreen,
 }, {

@@ -4,12 +4,13 @@ import _ from 'lodash';
 import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng, Polyline} from 'react-native-maps';
 import Supercluster, { ClusterFeature } from 'supercluster';
 import GeoViewport from '@mapbox/geo-viewport';
-import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader, Filter} from '../../components';
+import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader} from '../../components';
 import {LoadingIndicator, PoiMarker, ClusterMarker, Controls} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {convertToFeature, regionToBoundingBox, PoiFeature, routeToPolyline} from './utils';
 import {initialMapRegion, theme} from '../../consts';
+import {Filter} from '../../utils';
 import {MapContainer, Map} from './atoms';
 import {useData} from './use-data';
 import mapStyle from '../../../config/map-style.json';
@@ -20,7 +21,7 @@ type MapScreenParams = {
 };
 
 export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigation}) => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
     const userLocation = useRef<LatLng>({longitude: 0, latitude: 0});
     const mapRef = useRef<MapView>(null);
 

@@ -3,14 +3,15 @@ import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
-import {RouteCard, createTabIcon, ScreenHeader, Filter} from '../../components';
+import {RouteCard, createTabIcon, ScreenHeader} from '../../components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {List, Separator} from './atoms';
+import {Filter, formatRouteGqlFilter} from '../../utils';
 
 const GET_ROUTES = gql`
-    query {
-        routes(sort: "name") {
+    query($where: JSON!) {
+        routes(where: $where, sort: "name") {
             id
             name
             description
@@ -20,14 +21,23 @@ const GET_ROUTES = gql`
                     url
                 }
             }
+            routeitems {
+                poi {
+                    category {
+                        id
+                        name
+                    }
+                }
+            }
         }
     }
 `;
 
 export const RoutesScreen: NavigationScreenComponent = () => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
 
-    const {data, loading, refetch, error} = useQuery<Types.Query>(GET_ROUTES, {variables: filter});
+    const where = formatRouteGqlFilter(filter);
+    const {data, loading, refetch, error} = useQuery<Types.Query>(GET_ROUTES, {variables: {where}});
     useEffect(_.partial(messageBox.error, error), [error]);
     const routes = ((data && data.routes) || []) as Types.Route[];
 

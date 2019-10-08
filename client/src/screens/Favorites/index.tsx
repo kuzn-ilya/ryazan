@@ -9,22 +9,18 @@ import {
     PoiCard,
     RouteCard,
     ScreenHeader,
-    Filter,
     PoiCardAction,
 } from '../../components';
 
 import {Favorite, useFavorites} from '../../providers';
+import {Filter} from '../../utils';
 import {List, Separator} from './atoms';
+import {filterFavorites} from './utils';
 
 export const FavoritesScreen: NavigationScreenComponent = () => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: []});
-    const search = filter.search.toLowerCase();
+    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
     const {favorites} = useFavorites();
-
-    const data = _(favorites)
-        .filter(item => item.name.toLowerCase().includes(search))
-        .sortBy('name')
-        .value();
+    const data = _.sortBy(filterFavorites(favorites, filter), 'name');
 
     const reanderItem: ListRenderItem<Favorite> = ({item}) => {
         switch (item.__typename) {
