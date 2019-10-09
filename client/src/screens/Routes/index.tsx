@@ -44,7 +44,7 @@ export const RoutesScreen: NavigationScreenComponent = () => {
     return (
         <>
             <ScreenHeader
-                title="Routes"
+                title="Маршруты"
                 filter={filter}
                 onFilterChange={setFilter}
             />

@@ -36,7 +36,7 @@ export const FavoritesScreen: NavigationScreenComponent = () => {
     return (
         <>
             <ScreenHeader
-                title="Favorites"
+                title="Избранное"
                 filter={filter}
                 onFilterChange={setFilter}
             />

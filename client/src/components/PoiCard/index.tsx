@@ -45,9 +45,9 @@ export const PoiCard: React.FC<PoiCardProps> = React.memo(({poi, action}) => {
 
             <ActionBar>
                 {action === PoiCardAction.ShowOnMap &&
-                    <Button label="Show on map" onPress={handleShowOnMap} />}
+                    <Button label="На карте" onPress={handleShowOnMap} />}
                 {action === PoiCardAction.ShowDetails &&
-                    <Button label="Show details" onPress={handleShowDetails} />}
+                    <Button label="Подробнее" onPress={handleShowDetails} />}
 
                 <FlatIcons>
                     <IconButton icon="share" onPress={() => sharePoi(poi)} />

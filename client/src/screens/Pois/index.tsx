@@ -39,7 +39,7 @@ export const PoisScreen: NavigationScreenComponent = () => {
     return (
         <>
             <ScreenHeader
-                title="What to see"
+                title="Что посмотреть"
                 filter={filter}
                 onFilterChange={setFilter}
             />

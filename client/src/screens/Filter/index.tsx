@@ -71,11 +71,11 @@ export const FilterScreen: NavigationScreenComponent<FilterScreenParams> = ({nav
                 ))}
             </Content>
 
-            <FooterButton label="Apply" onPress={handleApply} />
+            <FooterButton label="Применить" onPress={handleApply} />
         </>
     );
 };
 
 FilterScreen.navigationOptions = {
-    title: 'Filter',
+    title: 'Фильтр',
 };
