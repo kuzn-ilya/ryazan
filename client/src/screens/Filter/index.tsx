@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {NavigationScreenComponent} from 'react-navigation';
+import {NavigationStackScreenComponent} from 'react-navigation-stack';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
@@ -23,7 +23,7 @@ export type FilterScreenParams = {
     onSubmit: (value: Filter) => void,
 };
 
-export const FilterScreen: NavigationScreenComponent<FilterScreenParams> = ({navigation}) => {
+export const FilterScreen: NavigationStackScreenComponent<FilterScreenParams> = ({navigation}) => {
     const onSubmit = navigation.getParam('onSubmit');
     const initialValue = navigation.getParam('initialValue');
     const [filter, setFilter] = useState(initialValue);

@@ -1,11 +1,7 @@
-import {windowHeaderConfig, Sidebar} from './components';
-
-import {
-    createBottomTabNavigator,
-    createDrawerNavigator,
-    createStackNavigator,
-    createAppContainer,
-} from 'react-navigation';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 
 import {
     FilterScreen,
@@ -19,6 +15,7 @@ import {
     RoutesScreen,
 } from './screens';
 
+import {windowHeaderConfig, Sidebar} from './components';
 import {Routes, theme} from './consts';
 
 const Tabs = createBottomTabNavigator({

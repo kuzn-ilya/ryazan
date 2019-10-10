@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavigationScreenComponent} from 'react-navigation';
+import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
@@ -28,7 +28,7 @@ const GET_POIS = gql`
     }
 `;
 
-export const PoisScreen: NavigationScreenComponent = () => {
+export const PoisScreen: NavigationBottomTabScreenComponent = () => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: null});
 
     const where = formatPoiGqlFilter(filter);

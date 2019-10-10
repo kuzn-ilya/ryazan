@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, ListRenderItem} from 'react-native';
-import {NavigationScreenComponent} from 'react-navigation';
+import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import _ from 'lodash';
 import {EmptyList} from './components';
 
@@ -17,7 +17,7 @@ import {Filter} from '../../utils';
 import {List, Separator} from './atoms';
 import {filterFavorites} from './utils';
 
-export const FavoritesScreen: NavigationScreenComponent = () => {
+export const FavoritesScreen: NavigationBottomTabScreenComponent = () => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: null});
     const {favorites} = useFavorites();
     const data = _.sortBy(filterFavorites(favorites, filter), 'name');

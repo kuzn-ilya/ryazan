@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NavigationScreenComponent} from 'react-navigation';
+import {NavigationStackScreenComponent} from 'react-navigation-stack';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
@@ -41,7 +41,7 @@ export type PoiDetailsScreenParams = {
     poiId: Types.Poi['id'],
 };
 
-export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams> = ({navigation}) => {
+export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenParams> = ({navigation}) => {
     const id = navigation.getParam('poiId');
 
     const {loading, data, error} = useQuery<Types.Query>(GET_POI, {
