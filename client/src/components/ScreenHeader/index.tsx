@@ -4,11 +4,7 @@ import {useNavigation} from 'react-navigation-hooks';
 import {IconButton} from '../IconButton';
 import {Container, Content, Title, SearchInput} from './atoms';
 import {Routes} from '../../consts';
-
-export type Filter = {
-    search: string,
-    categories: string[],
-};
+import {Filter} from '../../utils';
 
 export type ScreenHeaderProps = {
     title?: string,

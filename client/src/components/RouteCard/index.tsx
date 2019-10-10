@@ -48,8 +48,8 @@ export const RouteCard: React.FC<RouteCardProps> = React.memo(({route}) => {
             </Content>
 
             <ActionBar>
-                <Button label="Show on map" onPress={handleShowOnMap} />
-                <Button label="Show details" onPress={handleShowDetails} />
+                <Button label="На карте" onPress={handleShowOnMap} />
+                <Button label="Подробнее" onPress={handleShowDetails} />
             </ActionBar>
         </Card>
     );

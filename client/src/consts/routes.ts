@@ -5,7 +5,7 @@ export enum Routes {
     HISTORY = 'History',
     ABOUT = 'About',
     MAP = 'Map',
-    POI = 'Poi',
+    POIS = 'Pois',
     POI_DETAILS = 'Poi Details',
     ROUTES = 'Routes',
     ROUTE_DETAILS = 'Route Details',

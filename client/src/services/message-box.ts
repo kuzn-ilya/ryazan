@@ -4,7 +4,7 @@ export const info = (msg?: string) =>
     msg && Alert.alert('', msg);
 
 export const warn = (msg?: string) =>
-    msg && Alert.alert('Warning', msg);
+    msg && Alert.alert('Предупреждение', msg);
 
 export const error = (err?: Error) =>
-    err && Alert.alert('Error', err.message);
+    err && Alert.alert('Ошибка', err.message);

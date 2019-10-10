@@ -78,7 +78,7 @@ export const PoiDetailsScreen: NavigationScreenComponent<PoiDetailsScreenParams>
                 </Scroll>
 
                 <FooterButton
-                    label="Show on map"
+                    label="На карте"
                     onPress={() => navigation.navigate(Routes.MAP, {poiId: id})}
                 />
             </Container>

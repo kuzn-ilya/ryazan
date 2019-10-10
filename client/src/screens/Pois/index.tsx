@@ -3,14 +3,15 @@ import {NavigationScreenComponent} from 'react-navigation';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
-import {PoiCard, createTabIcon, ScreenHeader, Filter} from '../../components';
+import {PoiCard, createTabIcon, ScreenHeader} from '../../components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {List, Separator} from './atoms';
+import {Filter, formatPoiGqlFilter} from '../../utils';
 
 const GET_POIS = gql`
-    query {
-        pois(sort: "name") {
+    query($where: JSON!) {
+        pois(where: $where, sort: "name") {
             id
             name
             description
@@ -19,21 +20,26 @@ const GET_POIS = gql`
                     url
                 }
             }
+            category {
+                id
+                name
+            }
         }
     }
 `;
 
-export const PoiScreen: NavigationScreenComponent = () => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: []});
+export const PoisScreen: NavigationScreenComponent = () => {
+    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
 
-    const {data, loading, refetch, error} = useQuery<Types.Query>(GET_POIS, {variables: filter});
+    const where = formatPoiGqlFilter(filter);
+    const {data, loading, refetch, error} = useQuery<Types.Query>(GET_POIS, {variables: {where}});
     useEffect(_.partial(messageBox.error, error), [error]);
     const pois = ((data && data.pois) || []) as Types.Poi[];
 
     return (
         <>
             <ScreenHeader
-                title="What to see"
+                title="Что посмотреть"
                 filter={filter}
                 onFilterChange={setFilter}
             />
@@ -50,6 +56,6 @@ export const PoiScreen: NavigationScreenComponent = () => {
     );
 };
 
-PoiScreen.navigationOptions = {
+PoisScreen.navigationOptions = {
     tabBarIcon: createTabIcon('format-list-bulleted'),
 };

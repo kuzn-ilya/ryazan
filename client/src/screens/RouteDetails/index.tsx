@@ -70,7 +70,7 @@ export const RouteDetailsScreen: NavigationScreenComponent<RouteDetailsScreenPar
                 </Scroll>
 
                 <FooterButton
-                    label="Show on map"
+                    label="На карте"
                     onPress={() => navigation.navigate(Routes.MAP, {routeId: id})}
                 />
             </Container>
