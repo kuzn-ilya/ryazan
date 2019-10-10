@@ -5,5 +5,8 @@ module.exports = function(api) {
             'babel-preset-expo',
             'module:react-native-dotenv',
         ],
+        plugins: [
+            'lodash'
+        ],
     };
 };

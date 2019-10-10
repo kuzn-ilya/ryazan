@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NavigationScreenComponent} from 'react-navigation';
+import {NavigationStackScreenComponent} from 'react-navigation-stack';
 import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
@@ -36,7 +36,7 @@ export type RouteDetailsScreenParams = {
     routeId: Types.Route['id'],
 };
 
-export const RouteDetailsScreen: NavigationScreenComponent<RouteDetailsScreenParams> = ({navigation}) => {
+export const RouteDetailsScreen: NavigationStackScreenComponent<RouteDetailsScreenParams> = ({navigation}) => {
     const id = navigation.getParam('routeId');
 
     const {loading, data, error} = useQuery<Types.Query>(GET_ROUTE, {

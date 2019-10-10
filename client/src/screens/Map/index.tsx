@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
-import {NavigationScreenComponent} from 'react-navigation';
+import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import _ from 'lodash';
 import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng, Polyline} from 'react-native-maps';
 import Supercluster, { ClusterFeature } from 'supercluster';
@@ -20,7 +20,7 @@ type MapScreenParams = {
     routeId: Types.Route['id'],
 };
 
-export const MapScreen: NavigationScreenComponent<MapScreenParams> = ({navigation}) => {
+export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({navigation}) => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: null});
     const userLocation = useRef<LatLng>({longitude: 0, latitude: 0});
     const mapRef = useRef<MapView>(null);
