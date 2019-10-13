@@ -4,7 +4,7 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {CheckBox, FooterButton} from '../../components';
+import {CheckBox, FooterButton, LoadingScreen} from '../../components';
 import {messageBox} from '../../services';
 import {Filter} from '../../utils';
 import {Content} from './atoms';
@@ -28,7 +28,7 @@ export const FilterScreen: NavigationStackScreenComponent<FilterScreenParams> = 
     const initialValue = navigation.getParam('initialValue');
     const [filter, setFilter] = useState(initialValue);
 
-    const {data, error} = useQuery<Types.Query>(GET_CATEGORIES);
+    const {data, error, loading} = useQuery<Types.Query>(GET_CATEGORIES);
     const availableCategories = (data && data.categories) || [];
     useEffect(_.partial(messageBox.error, error), [error]);
 
@@ -57,6 +57,10 @@ export const FilterScreen: NavigationStackScreenComponent<FilterScreenParams> = 
         onSubmit(filter);
         navigation.goBack(null);
     };
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
     return (
         <>
