@@ -12,3 +12,4 @@ export * from './ScreenHeader';
 export * from './Sidebar';
 export * from './WindowHeader';
 export * from './TabIcon';
+export * from './TextButton';
