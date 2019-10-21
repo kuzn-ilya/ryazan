@@ -7,7 +7,7 @@ import {Routes} from '../../consts';
 import {Filter} from '../../utils';
 
 export type ScreenHeaderProps = {
-    title?: string,
+    title: string,
     filter: Filter,
     onFilterChange: (filter: Filter) => void,
 };

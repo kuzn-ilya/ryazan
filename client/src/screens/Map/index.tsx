@@ -129,6 +129,7 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
     return (
         <>
             <ScreenHeader
+                title="Карта"
                 filter={filter}
                 onFilterChange={setFilter}
             />
