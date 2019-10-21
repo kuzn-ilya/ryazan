@@ -7,7 +7,7 @@ import * as Types from '../../types/graphql';
 import {CheckBox, FooterButton, LoadingScreen, TextButton} from '../../components';
 import {messageBox} from '../../services';
 import {Filter} from '../../utils';
-import {Content} from './atoms';
+import {Content, SelectAllWrapper} from './atoms';
 
 const GET_CATEGORIES = gql`
     query {
@@ -35,12 +35,7 @@ export const FilterScreen: NavigationStackScreenComponent<FilterScreenParams> = 
     const checkedCategoryIds: string[] = (filter.categories && filter.categories.length)
         ? filter.categories : _.map(availableCategories, 'id');
 
-    const handleSelectAll = () => setFilter({
-        ...filter,
-        categories: availableCategories
-            .filter(_.identity)
-            .map(category => category!.id)
-    });
+    const handleSelectAll = () => setFilter({...filter, categories: null});
 
     const handleCategoryChange = (categoryId: string, checked: boolean) => {
         /* do not uncheck the last checked category */
@@ -72,7 +67,9 @@ export const FilterScreen: NavigationStackScreenComponent<FilterScreenParams> = 
     return (
         <>
             <Content>
-                <TextButton label="Выбрать все" onPress={handleSelectAll} />
+                <SelectAllWrapper>
+                    <TextButton label="Выбрать все" onPress={handleSelectAll} />
+                </SelectAllWrapper>
 
                 {availableCategories.map(category => (
                     <CheckBox

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {theme} from '../../consts';
 
 export const Container = styled.TouchableOpacity.attrs({
     activeOpacity: 0.75,
@@ -8,6 +9,7 @@ export const Container = styled.TouchableOpacity.attrs({
 `;
 
 export const Label = styled.Text`
-    color: black;
+    color: ${theme.blue};
     font-size: 14;
+    text-decoration-line: underline;
 `;
