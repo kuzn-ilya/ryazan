@@ -16,6 +16,8 @@ const GET_POIS = gql`
             id
             name
             description
+            latitude
+            longitude
             photos {
                 content {
                     url

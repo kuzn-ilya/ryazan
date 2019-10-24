@@ -4,6 +4,7 @@
     "slug": "ryazan",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "entryPoint": "./src/App.tsx",
     "platforms": [
       "ios",
       "android"
