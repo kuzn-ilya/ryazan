@@ -39,8 +39,14 @@ const Tabs = createBottomTabNavigator({
 
 const Stack = createStackNavigator({
     [Routes.TABS]: Tabs,
-    [Routes.POI_DETAILS]: PoiDetailsScreen,
-    [Routes.ROUTE_DETAILS]: RouteDetailsScreen,
+    [Routes.POI_DETAILS]: {
+        screen: PoiDetailsScreen,
+        path: 'pois/:poiId',
+    },
+    [Routes.ROUTE_DETAILS]: {
+        screen: RouteDetailsScreen,
+        path: 'routes/:routeId',
+    },
     [Routes.FILTER]: FilterScreen,
     [Routes.HISTORY]: HistoryScreen,
     [Routes.ABOUT]: AboutScreen,
@@ -50,7 +56,10 @@ const Stack = createStackNavigator({
 });
 
 const Drawer = createDrawerNavigator({
-    [Routes.STACK]: Stack,
+    [Routes.STACK]: {
+        screen: Stack,
+        path: '',
+    },
 }, {
     contentComponent: Sidebar,
 });
