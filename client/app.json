@@ -10,6 +10,7 @@
     ],
     "version": "v0.0.2",
     "orientation": "portrait",
+    "scheme": "ryazan",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

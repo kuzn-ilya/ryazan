@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import ApolloClient, {InMemoryCache} from 'apollo-boost';
 import {ApolloProvider as ApolloHooksProvider} from 'react-apollo-hooks';
 import {ApolloProvider} from 'react-apollo';
-import {AppLoading} from 'expo';
+import {AppLoading, Linking} from 'expo';
 import * as Font from 'expo-font';
 import {AppNavigator} from './src/Navigator';
 import {env} from './src/consts';
@@ -16,6 +16,7 @@ const client = new ApolloClient({
 
 const App = () => {
     const [isReady, setIsReady] = useState(false);
+    const uriPrefix = Linking.makeUrl('/');
 
     const load = async () => {
         await Font.loadAsync({
@@ -37,7 +38,7 @@ const App = () => {
         <ApolloProvider client={client}>
             <ApolloHooksProvider client={client}>
                 <FavoritesProvider>
-                    <AppNavigator />
+                    <AppNavigator uriPrefix={uriPrefix} />
                 </FavoritesProvider>
             </ApolloHooksProvider>
         </ApolloProvider>
