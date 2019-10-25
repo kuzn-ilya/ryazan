@@ -1,3 +1,9 @@
-import {API_URL} from 'react-native-dotenv';
+import {
+  API_URL,
+  DEEPLINK_URL,
+} from 'react-native-dotenv';
 
-export let env = {apiUrl: API_URL};
+export let env = {
+  apiUrl: API_URL,
+  deeplinkUrl: DEEPLINK_URL,
+};
