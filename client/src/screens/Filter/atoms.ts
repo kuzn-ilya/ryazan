@@ -6,3 +6,8 @@ export const Content = styled.View`
     padding-horizontal: ${theme.screenIndent};
     padding-vertical: 32;
 `;
+
+export const SelectAllWrapper = styled.View`
+    width: 100%;
+    align-items: flex-end;
+`;
