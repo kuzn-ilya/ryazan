@@ -9,11 +9,6 @@ export const Scroll = styled.ScrollView`
     flex: 1;
 `;
 
-export const Picture = styled.Image`
-    width: 100%;
-    height: 230;
-`;
-
 export const Content = styled.View`
     padding: ${theme.screenIndent};
 `;

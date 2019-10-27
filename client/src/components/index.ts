@@ -6,6 +6,7 @@ export * from './Header';
 export * from './IconButton';
 export * from './LoadingScreen';
 export * from './Modal';
+export * from './PhotoSwiper';
 export * from './PoiCard';
 export * from './RouteCard';
 export * from './ScreenHeader';

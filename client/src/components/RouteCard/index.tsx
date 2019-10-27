@@ -6,7 +6,7 @@ import {Button} from '../Button';
 import {IconButton} from '../IconButton';
 import {Card} from '../Card';
 import {useFavorites} from '../../providers';
-import {getPhotoUri} from '../../utils';
+import {getPrimaryPhotoUri} from '../../utils';
 import {Routes, theme} from '../../consts';
 
 import {
@@ -26,7 +26,7 @@ export const RouteCard: React.FC<RouteCardProps> = React.memo(({route}) => {
     const {id, name, description, photos} = route;
     const {navigate} = useNavigation();
     const {isFavorite, addFavorite, removeFavorite} = useFavorites();
-    const photoUri = getPhotoUri(photos);
+    const photoUri = getPrimaryPhotoUri(photos);
 
     const handleShowDetails = () => navigate(Routes.ROUTE_DETAILS, {routeId: id});
     const handleShowOnMap = () => navigate(Routes.MAP, {routeId: id});

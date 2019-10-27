@@ -4,15 +4,14 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {FooterButton, LoadingScreen} from '../../components';
+import {FooterButton, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
 import {Routes} from '../../consts';
-import {formatAddress, getPhotoUri} from '../../utils';
+import {formatAddress} from '../../utils';
 
 import {
     Container,
     Scroll,
-    Picture,
     Content,
     Title,
     Subtitle,
@@ -61,14 +60,12 @@ export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenPa
 
     if (data && data.poi) {
         const {name, description, photos, street, building} = data.poi;
-
-        const photoUri = getPhotoUri(photos);
         const descriptionLines = (description || '').split('\n');
 
         return (
             <Container>
                 <Scroll bounces={false}>
-                    <Picture source={{uri: photoUri}} />
+                    <PhotoSwiper photos={photos} />
 
                     <Content>
                         <Title>{name}</Title>
