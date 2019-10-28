@@ -4,15 +4,13 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {FooterButton, LoadingScreen} from '../../components';
+import {FooterButton, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
 import {Routes} from '../../consts';
-import {getPhotoUri} from '../../utils';
 
 import {
     Container,
     Scroll,
-    Picture,
     Content,
     Title,
     Description,
@@ -56,12 +54,11 @@ export const RouteDetailsScreen: NavigationStackScreenComponent<RouteDetailsScre
 
     if (data && data.route) {
         const {name, description, photos} = data.route;
-        const photoUri = getPhotoUri(photos);
 
         return (
             <Container>
                 <Scroll bounces={false}>
-                    <Picture source={{uri: photoUri}} />
+                    <PhotoSwiper photos={photos} />
 
                     <Content>
                         <Title>{name}</Title>
