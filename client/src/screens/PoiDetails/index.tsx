@@ -60,7 +60,6 @@ export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenPa
 
     if (data && data.poi) {
         const {name, description, photos, street, building} = data.poi;
-        const descriptionLines = (description || '').split('\n');
 
         return (
             <Container>
@@ -70,7 +69,7 @@ export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenPa
                     <Content>
                         <Title>{name}</Title>
                         <Subtitle>{formatAddress({street, building})}</Subtitle>
-                        {descriptionLines.map(line => <Description key={line}>{line}</Description>)}
+                        <Description>{description}</Description>
                     </Content>
                 </Scroll>
 
