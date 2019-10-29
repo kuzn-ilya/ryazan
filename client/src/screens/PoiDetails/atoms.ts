@@ -1,3 +1,4 @@
+import Markdown from 'react-native-easy-markdown';
 import styled from 'styled-components/native';
 import {theme} from '../../consts';
 
@@ -23,7 +24,6 @@ export const Subtitle = styled.Text`
     color: #999;
 `;
 
-export const Description = styled.Text`
-    font-size: 14;
+export const Description = styled(Markdown)`
     margin-top: ${theme.screenIndent};
 `;
