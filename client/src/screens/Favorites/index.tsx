@@ -37,6 +37,7 @@ export const FavoritesScreen: NavigationBottomTabScreenComponent = () => {
         <>
             <ScreenHeader
                 title="Избранное"
+                enableFilter
                 filter={filter}
                 onFilterChange={setFilter}
             />

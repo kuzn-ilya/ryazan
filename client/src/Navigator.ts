@@ -12,6 +12,7 @@ import {
     PoiDetailsScreen,
     PoisScreen,
     RouteDetailsScreen,
+    RouteMapScreen,
     RoutesScreen,
 } from './screens';
 
@@ -23,6 +24,7 @@ const Tabs = createBottomTabNavigator({
     [Routes.POIS]: PoisScreen,
     [Routes.ROUTES]: RoutesScreen,
     [Routes.FAVORITES]: FavoritesScreen,
+    [Routes.ROUTE_MAP]: RouteMapScreen,
 }, {
     tabBarOptions: {
         showLabel: false,
