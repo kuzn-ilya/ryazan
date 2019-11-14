@@ -7,3 +7,4 @@ export * from './Pois';
 export * from './PoiDetails';
 export * from './Routes';
 export * from './RouteDetails';
+export * from './RouteMap';

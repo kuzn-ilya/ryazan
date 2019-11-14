@@ -40,6 +40,7 @@ export const PoisScreen: NavigationBottomTabScreenComponent = () => {
         <>
             <ScreenHeader
                 title="Что посмотреть"
+                enableFilter
                 filter={filter}
                 onFilterChange={setFilter}
             />

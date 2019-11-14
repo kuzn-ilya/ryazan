@@ -68,7 +68,7 @@ export const RouteDetailsScreen: NavigationStackScreenComponent<RouteDetailsScre
 
                 <FooterButton
                     label="На карте"
-                    onPress={() => navigation.navigate(Routes.MAP, {routeId: id})}
+                    onPress={() => navigation.navigate(Routes.ROUTE_MAP, {routeId: id})}
                 />
             </Container>
         );

@@ -1,3 +1,4 @@
+import {useMemo} from 'react';
 import {useQuery} from 'react-apollo-hooks';
 import {gql, ApolloError} from 'apollo-boost';
 import _ from 'lodash';
@@ -63,8 +64,10 @@ export const useData = ({routeId, filter}: UseDataArgs): UseDataResult => {
     if (routeId) {
         const {data, loading, error} = useQuery<Types.Query>(GET_ROUTE, {variables: {id: routeId}});
 
-        const routeitems = _.get(data, 'route.routeitems', []) as Types.Routeitem[];
-        const pois = _.map(routeitems, 'poi') as Types.Poi[];
+        const pois = useMemo(() => {
+            const routeitems = _.get(data, 'route.routeitems', []) as Types.Routeitem[];
+            return _.map(routeitems, 'poi') as Types.Poi[];
+        }, [data]);
 
         return {
             loading,
@@ -76,11 +79,16 @@ export const useData = ({routeId, filter}: UseDataArgs): UseDataResult => {
         const where = formatPoiGqlFilter(filter);
         const {data, loading, error} = useQuery<Types.Query>(GET_POIS, {variables: {where}});
 
+        const pois = useMemo(
+            () => _.get(data, 'pois', []) as Types.Poi[],
+            [data],
+        );
+
         return {
             loading,
             error,
             isRoute: false,
-            pois: _.get(data, 'pois', []) as Types.Poi[],
+            pois,
         }
     }
 }

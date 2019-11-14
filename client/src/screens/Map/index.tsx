@@ -1,47 +1,33 @@
-import React, {useState, useEffect, useMemo, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import _ from 'lodash';
-import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng, Polyline} from 'react-native-maps';
-import Supercluster, { ClusterFeature } from 'supercluster';
-import GeoViewport from '@mapbox/geo-viewport';
-import {createTabIcon, PoiCard, Modal, PoiCardAction, ScreenHeader} from '../../components';
-import {LoadingIndicator, PoiMarker, ClusterMarker, Controls} from './components';
+import {Polyline} from 'react-native-maps';
+import {createTabIcon, PoiCard, Modal, PoiCardAction, PoiMap, PoiMapControl, ScreenHeader} from '../../components';
+import {LoadingIndicator, Controls} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
-import {convertToFeature, regionToBoundingBox, PoiFeature, routeToPolyline} from './utils';
-import {initialMapRegion, theme} from '../../consts';
+import {routeToPolyline} from './utils';
+import {theme} from '../../consts';
 import {Filter} from '../../utils';
-import {MapContainer, Map} from './atoms';
+import {MapContainer} from './atoms';
 import {useData} from './use-data';
-import mapStyle from '../../../config/map-style.json';
 
-type MapScreenParams = {
+export type MapScreenParams = {
     poiId: Types.Poi['id'],
     routeId: Types.Route['id'],
 };
 
 export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({navigation}) => {
     const [filter, setFilter] = useState<Filter>({search: '', categories: null});
-    const userLocation = useRef<LatLng>({longitude: 0, latitude: 0});
-    const mapRef = useRef<MapView>(null);
+    const mapControlRef = useRef<PoiMapControl>(null);
 
+    const poiId = navigation.getParam('poiId');
     const routeId = navigation.getParam('routeId');
     const {loading, error, isRoute, pois} = useData({routeId, filter});
     useEffect(_.partial(messageBox.error, error), [error]);
 
-    const [currentRegion, setCurrentRegion] = useState(initialMapRegion);
-    const [dimentions, setDimentions] = useState({x: 0, y: 0, width: 1, height: 1});
     const [selectedMarker, setSelectedMarker] = useState<Types.Poi | null>(null);
     const unselectMarker = () => setSelectedMarker(null);
-
-    /* clusters */
-    const features = useMemo(() => {
-        const clusterer = new Supercluster<Types.Poi>();
-        clusterer.load(pois.map(convertToFeature));
-        const bbox = regionToBoundingBox(currentRegion);
-        const viewport = GeoViewport.viewport(bbox, [dimentions.width, dimentions.height]);
-        return clusterer.getClusters(bbox, viewport.zoom);
-    }, [pois, currentRegion, dimentions]);
 
     /* hides modal window if the user moves to a different screen */
     useEffect(() => {
@@ -51,105 +37,33 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
 
     /* moves the camera to a specified marker */
     useEffect(() => {
-        if (!(mapRef.current && pois)) return;
+        if (!(mapControlRef.current && pois && pois.length)) return;
 
-        const id = navigation.getParam('poiId');
-        if (!id) return;
-
-        const marker = _.find(pois, {id});
-        if (!marker) return;
-
-        mapRef.current.animateCamera({
-            center: {
-                longitude: marker.longitude,
-                latitude: marker.latitude,
-            },
-        });
-    }, [pois, navigation.state.params]);
-
-    const handleLayoutChange: MapViewProps['onLayout'] = ({nativeEvent: {layout}}) =>
-        setDimentions(layout);
-
-    const handleUserLocationChange: MapViewProps['onUserLocationChange'] = (
-        {nativeEvent: {coordinate: {latitude, longitude}}},
-    ) => userLocation.current = {latitude, longitude};
-
-    const handleUserLocation = () => {
-        const {longitude, latitude} = userLocation.current;
-        if (mapRef.current && longitude && latitude) {
-            mapRef.current.animateCamera({
-                center: userLocation.current,
-            });
+        if (routeId) {
+            mapControlRef.current.animateToPoi(pois[0]);
+        } else if (poiId) {
+            const marker = _.find(pois, {id: poiId});
+            if (!marker) return;
+            mapControlRef.current.animateToPoi(marker);
         }
-    };
-
-    const handleZoomIn = () => {
-        if (mapRef.current) {
-            mapRef.current.animateToRegion({
-                ...currentRegion,
-                longitudeDelta: currentRegion.longitudeDelta * 0.5,
-                latitudeDelta: currentRegion.latitudeDelta * 0.5,
-            }, 250);
-        }
-    };
-
-    const handleZoomOut = () => {
-        if (mapRef.current) {
-            mapRef.current.animateToRegion({
-                ...currentRegion,
-                longitudeDelta: currentRegion.longitudeDelta / 0.5,
-                latitudeDelta: currentRegion.latitudeDelta / 0.5,
-            }, 250);
-        }
-    };
-
-    const renderMarker = (feature: ClusterFeature<{}> | PoiFeature) => {
-        const clusterFeature = feature as ClusterFeature<{}>;
-
-        if (clusterFeature.properties.cluster) {
-            return (
-                <ClusterMarker
-                    key={`cluster_${clusterFeature.id}`}
-                    feature={clusterFeature}
-                />
-            )
-        }
-
-        const poiFeature = feature as PoiFeature;
-
-        return (
-            <PoiMarker
-                key={poiFeature.properties.id}
-                feature={poiFeature}
-                onPress={() => setSelectedMarker(poiFeature.properties)}
-            />
-        )
-    };
+    }, [pois, poiId, routeId]);
 
     return (
         <>
             <ScreenHeader
                 title="Карта"
+                enableFilter={!isRoute}
                 filter={filter}
                 onFilterChange={setFilter}
             />
 
             <MapContainer>
-                <Map
-                    ref={mapRef}
-                    provider={PROVIDER_GOOGLE}
-                    customMapStyle={mapStyle}
-                    initialRegion={initialMapRegion}
-                    showsUserLocation
-                    followsUserLocation
-                    showsMyLocationButton={false}
-                    toolbarEnabled={false}
-                    onLayout={handleLayoutChange}
-                    onRegionChangeComplete={setCurrentRegion}
-                    onUserLocationChange={handleUserLocationChange}
+                <PoiMap
+                    controlRef={mapControlRef}
+                    enableClusters={!isRoute}
+                    pois={pois}
+                    onPoiPress={setSelectedMarker}
                 >
-                    {features.map(renderMarker)}
-
                     {isRoute &&
                         <Polyline
                             coordinates={routeToPolyline(pois)}
@@ -158,13 +72,7 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
                             lineCap="round"
                         />
                     }
-                </Map>
-
-                <Controls
-                    onUserLocation={handleUserLocation}
-                    onZoomIn={handleZoomIn}
-                    onZoomOut={handleZoomOut}
-                />
+                </PoiMap>
 
                 {loading && <LoadingIndicator />}
             </MapContainer>

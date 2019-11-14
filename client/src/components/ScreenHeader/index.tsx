@@ -8,11 +8,12 @@ import {Filter} from '../../utils';
 
 export type ScreenHeaderProps = {
     title: string,
+    enableFilter: boolean,
     filter: Filter,
     onFilterChange: (filter: Filter) => void,
 };
 
-export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilterChange}) => {
+export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, filter, onFilterChange}) => {
     const navigation = useNavigation();
     const [searchBarShown, setSearchBarShown] = useState(false);
     const searchInputRef = useRef<TextInput>(null);
@@ -53,6 +54,8 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilt
                 onFilterChange({...filter, ...value}),
         });
 
+    const handleMenuToggle = () => navigation.toggleDrawer();
+
     const handleSearchChange = (search: string) =>
         onFilterChange({...filter, search});
 
@@ -71,13 +74,18 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilt
                     onChangeText={handleSearchChange}
                 />
             </Content>
+
+            <IconButton
+                icon="filter-list"
+                onPress={selectCategories}
+            />
         </>
 
-    const renderTitle = () =>
+    const renderTitleWithFilter = () =>
         <>
             <IconButton
                 icon="menu"
-                onPress={() => navigation.toggleDrawer()}
+                onPress={handleMenuToggle}
             />
 
             <Content>
@@ -88,17 +96,34 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, filter, onFilt
                 icon="search"
                 onPress={() => setSearchBarShown(true)}
             />
-        </>
-
-    return (
-        <Container>
-            <StatusBar barStyle="dark-content" />
-            {searchBarShown ? renderSearchBar() : renderTitle()}
 
             <IconButton
                 icon="filter-list"
                 onPress={selectCategories}
             />
+        </>
+
+    const renderTitle = () =>
+        <>
+            <IconButton
+                icon="menu"
+                onPress={handleMenuToggle}
+            />
+
+            <Content>
+                <Title>{title}</Title>
+            </Content>
+        </>
+
+    return (
+        <Container>
+            <StatusBar barStyle="dark-content" />
+
+            {!enableFilter
+                ? renderTitle()
+                : searchBarShown
+                    ? renderSearchBar()
+                    : renderTitleWithFilter()}
         </Container>
     );
 };

@@ -8,6 +8,7 @@ export * from './LoadingScreen';
 export * from './Modal';
 export * from './PhotoSwiper';
 export * from './PoiCard';
+export * from './PoiMap';
 export * from './RouteCard';
 export * from './ScreenHeader';
 export * from './Sidebar';
