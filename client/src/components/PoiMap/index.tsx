@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
-import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng, Polyline} from 'react-native-maps';
+import MapView, {MapViewProps, PROVIDER_GOOGLE, LatLng} from 'react-native-maps';
 import Supercluster, { ClusterFeature } from 'supercluster';
 import GeoViewport from '@mapbox/geo-viewport';
 import * as Types from '../../types/graphql';

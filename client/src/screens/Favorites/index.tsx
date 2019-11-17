@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, ListRenderItem} from 'react-native';
 import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import _ from 'lodash';
+import {windowHeaderConfig} from '../../components';
 import {EmptyList} from './components';
 
 import {
@@ -25,7 +26,7 @@ export const FavoritesScreen: NavigationBottomTabScreenComponent = () => {
     const reanderItem: ListRenderItem<Favorite> = ({item}) => {
         switch (item.__typename) {
             case 'Poi':
-                return <PoiCard poi={item} action={PoiCardAction.ShowDetails} />;
+                return <PoiCard poi={item} action={PoiCardAction.ShowOnMap} />;
             case 'Route':
                 return <RouteCard route={item} />;
             default:
@@ -56,5 +57,6 @@ export const FavoritesScreen: NavigationBottomTabScreenComponent = () => {
 };
 
 FavoritesScreen.navigationOptions = {
-    tabBarIcon: createTabIcon('stars'),
+    tabBarIcon: createTabIcon('star'),
+    ...windowHeaderConfig,
 };

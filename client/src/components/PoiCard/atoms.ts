@@ -1,19 +1,15 @@
 import styled from 'styled-components/native';
+import {Subheading} from '../Text';
 import {theme} from '../../consts';
 
-export const Title = styled.Text`
-    font-size: 20;
-`;
-
-export const Subtitle = styled.Text.attrs({
+export const Subtitle = styled(Subheading).attrs({
     numberOfLines: 3,
     ellipsizeMode: 'tail',
 })`
     flex: 1;
     margin-top: 10;
-    font-size: 14;
     color: #999;
-    padding-bottom: ${theme.screenIndent};
+    padding-bottom: ${theme.screenIndent}px;
 `;
 
 export const ActionBar = styled.View`

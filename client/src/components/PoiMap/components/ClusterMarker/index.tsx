@@ -15,7 +15,7 @@ export const ClusterMarker: React.FC<ClusterMarkerProps> = ({
     },
     onPress,
 }) =>
-    <Marker coordinate={{latitude, longitude}} onPress={onPress}>
+    <Marker anchor={{x: 0.5, y: 0.5}} coordinate={{latitude, longitude}} onPress={onPress}>
         <Circle>
             <Label>{point_count}</Label>
         </Circle>

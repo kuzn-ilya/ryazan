@@ -63,5 +63,5 @@ export const RoutesScreen: NavigationBottomTabScreenComponent = () => {
 };
 
 RoutesScreen.navigationOptions = {
-    tabBarIcon: createTabIcon('directions-walk'),
+    tabBarIcon: createTabIcon('route'),
 };

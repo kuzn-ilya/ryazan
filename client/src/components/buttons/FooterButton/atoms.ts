@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import SafeAreaView from 'react-native-safe-area-view';
-import {theme} from '../../consts';
+import {theme} from '../../../consts';
 
 export const Container = styled(SafeAreaView).attrs({
     forceInset: {

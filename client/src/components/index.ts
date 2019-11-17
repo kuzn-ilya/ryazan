@@ -1,9 +1,7 @@
-export * from './Button';
+export * from './buttons';
 export * from './Card';
 export * from './CheckBox';
-export * from './FooterButton';
 export * from './Header';
-export * from './IconButton';
 export * from './LoadingScreen';
 export * from './Modal';
 export * from './PhotoSwiper';
@@ -14,4 +12,4 @@ export * from './ScreenHeader';
 export * from './Sidebar';
 export * from './WindowHeader';
 export * from './TabIcon';
-export * from './TextButton';
+export * from './Text';

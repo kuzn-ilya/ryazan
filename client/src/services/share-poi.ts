@@ -8,3 +8,9 @@ export const sharePoi = ({id, name}: Types.Poi) =>
         title: name,
         message: `${env.deeplinkUrl}/pois/${id}`,
     });
+
+export const shareRoute = ({id, name}: Types.Route) =>
+    Share.share({
+        title: name,
+        message: `${env.deeplinkUrl}/routes/${id}`,
+    });

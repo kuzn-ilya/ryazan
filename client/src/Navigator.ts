@@ -16,7 +16,7 @@ import {
     RoutesScreen,
 } from './screens';
 
-import {windowHeaderConfig, Sidebar} from './components';
+import {Sidebar} from './components';
 import {Routes, theme} from './consts';
 
 const Tabs = createBottomTabNavigator({
@@ -29,7 +29,7 @@ const Tabs = createBottomTabNavigator({
     tabBarOptions: {
         showLabel: false,
         activeTintColor: theme.red,
-        inactiveTintColor: theme.darkGrey,
+        inactiveTintColor: theme.red,
         style: {
             height: theme.footerHeight,
         },
@@ -53,8 +53,8 @@ const Stack = createStackNavigator({
     [Routes.HISTORY]: HistoryScreen,
     [Routes.ABOUT]: AboutScreen,
 }, {
+    headerMode: 'none',
     headerLayoutPreset: 'center',
-    defaultNavigationOptions: windowHeaderConfig,
 });
 
 const Drawer = createDrawerNavigator({
@@ -63,6 +63,8 @@ const Drawer = createDrawerNavigator({
         path: '',
     },
 }, {
+    drawerWidth: 261,
+    drawerBackgroundColor: 'transparent',
     contentComponent: Sidebar,
 });
 
