@@ -3,7 +3,7 @@ import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import _ from 'lodash';
 import {Polyline} from 'react-native-maps';
 import {createTabIcon, PoiCard, Modal, PoiCardAction, PoiMap, PoiMapControl, ScreenHeader} from '../../components';
-import {LoadingIndicator, Controls} from './components';
+import {LoadingIndicator} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {routeToPolyline} from './utils';
@@ -87,5 +87,5 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
 };
 
 MapScreen.navigationOptions = {
-    tabBarIcon: createTabIcon('place'),
+    tabBarIcon: createTabIcon('map'),
 };

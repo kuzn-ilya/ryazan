@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {StatusBar} from 'react-native';
 import ApolloClient, {InMemoryCache} from 'apollo-boost';
 import {ApolloProvider as ApolloHooksProvider} from 'react-apollo-hooks';
 import {ApolloProvider} from 'react-apollo';
@@ -20,9 +21,9 @@ const App = () => {
 
     const load = async () => {
         await Font.loadAsync({
-            Roboto: require('./assets/fonts/roboto/Roboto-Regular.ttf'),
-            RobotoMedium: require('./assets/fonts/roboto/Roboto-Medium.ttf'),
-            RobotoBold: require('./assets/fonts/roboto/Roboto-Bold.ttf'),
+            'PT Sans': require('./assets/fonts/pt-sans/PTSans-Regular.ttf'),
+            'PT Sans Bold': require('./assets/fonts/pt-sans/PTSans-Bold.ttf'),
+            'IcoMoon': require('./assets/fonts/icomoon.ttf'),
         });
     };
 
@@ -38,6 +39,7 @@ const App = () => {
         <ApolloProvider client={client}>
             <ApolloHooksProvider client={client}>
                 <FavoritesProvider>
+                    <StatusBar barStyle="dark-content" />
                     <AppNavigator uriPrefix={uriPrefix} />
                 </FavoritesProvider>
             </ApolloHooksProvider>

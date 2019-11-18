@@ -2,16 +2,15 @@ import React from 'react';
 import {useNavigation} from 'react-navigation-hooks';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {Button} from '../Button';
-import {IconButton} from '../IconButton';
+import {Button, IconButton} from '../buttons';
 import {Card} from '../Card';
+import {H2} from '../Text';
 import {sharePoi} from '../../services';
 import {useFavorites} from '../../providers';
 import {getPrimaryPhotoUri, getShortDescription} from '../../utils';
 import {Routes, theme} from '../../consts';
 
 import {
-    Title,
     Subtitle,
     ActionBar,
     FlatIcons,
@@ -41,7 +40,7 @@ export const PoiCard: React.FC<PoiCardProps> = React.memo(({poi, action}) => {
 
     return (
         <Card imageUri={photoUri} onPress={handleShowDetails}>
-            <Title>{name}</Title>
+            <H2>{name}</H2>
             <Subtitle>{shortDescription}</Subtitle>
 
             <ActionBar>
@@ -53,8 +52,8 @@ export const PoiCard: React.FC<PoiCardProps> = React.memo(({poi, action}) => {
                 <FlatIcons>
                     <IconButton icon="share" onPress={() => sharePoi(poi)} />
                     {isFavorite(poi)
-                        ? <IconButton icon="favorite" color={theme.red}  onPress={handleRemoveFavorite} />
-                        : <IconButton icon="favorite-border" onPress={handleAddFavorite} />}
+                        ? <IconButton icon="star-active" color={theme.red}  onPress={handleRemoveFavorite} />
+                        : <IconButton icon="star" onPress={handleAddFavorite} />}
                 </FlatIcons>
             </ActionBar>
         </Card>

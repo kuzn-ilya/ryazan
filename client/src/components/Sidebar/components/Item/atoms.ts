@@ -1,18 +1,17 @@
 import styled from 'styled-components/native';
-import {theme} from '../../../../consts';
 
 export const Container = styled.TouchableOpacity.attrs({
     activeOpacity: 0.75,
 })`
-    height: 55;
+    height: 40;
     justify-content: center;
     align-items: flex-start;
 `;
 
 export const Label = styled.Text`
-    font-family: Roboto;
-    font-size: 16;
-    color: black;
+    font-family: PT Sans;
+    font-size: 17;
+    color: #1a1a1a;
     opacity: 0.87;
-    padding-horizontal: ${theme.screenIndent};
+    padding-horizontal: 22;
 `;

@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {TextInput, Keyboard, BackHandler, Platform, StatusBar} from 'react-native';
 import {useNavigation} from 'react-navigation-hooks';
-import {IconButton} from '../IconButton';
-import {Container, Content, Title, SearchInput} from './atoms';
+import {Container, Content, Title, SearchInput, Button} from './atoms';
 import {Routes} from '../../consts';
 import {Filter} from '../../utils';
 
@@ -54,6 +53,8 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
                 onFilterChange({...filter, ...value}),
         });
 
+    const filterIcon = filter.search || filter.categories ? 'filter-active' : 'filter';
+
     const handleMenuToggle = () => navigation.toggleDrawer();
 
     const handleSearchChange = (search: string) =>
@@ -61,7 +62,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
 
     const renderSearchBar = () =>
         <>
-            <IconButton
+            <Button
                 icon="close"
                 onPress={hideSearchBar}
             />
@@ -75,15 +76,15 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
                 />
             </Content>
 
-            <IconButton
-                icon="filter-list"
+            <Button
+                icon={filterIcon}
                 onPress={selectCategories}
             />
         </>
 
     const renderTitleWithFilter = () =>
         <>
-            <IconButton
+            <Button
                 icon="menu"
                 onPress={handleMenuToggle}
             />
@@ -92,20 +93,20 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
                 <Title>{title}</Title>
             </Content>
 
-            <IconButton
+            <Button
                 icon="search"
                 onPress={() => setSearchBarShown(true)}
             />
 
-            <IconButton
-                icon="filter-list"
+            <Button
+                icon={filterIcon}
                 onPress={selectCategories}
             />
         </>
 
     const renderTitle = () =>
         <>
-            <IconButton
+            <Button
                 icon="menu"
                 onPress={handleMenuToggle}
             />

@@ -11,5 +11,5 @@ export const Container = styled.TouchableOpacity.attrs({
 
 export const Label = styled.Text`
     color: black;
-    padding-left: ${theme.screenIndent};
+    padding-left: ${theme.screenIndent}px;
 `;

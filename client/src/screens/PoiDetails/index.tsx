@@ -4,18 +4,17 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {FooterButton, LoadingScreen, PhotoSwiper} from '../../components';
+import {H1, Button, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
 import {Routes} from '../../consts';
-import {formatAddress} from '../../utils';
 
 import {
+    SafeArea,
     Container,
     Scroll,
-    Content,
-    Title,
-    Subtitle,
     Description,
+    CloseButton,
+    Footer,
 } from './atoms';
 
 const GET_POI = gql`
@@ -59,25 +58,27 @@ export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenPa
     }
 
     if (data && data.poi) {
-        const {name, description, photos, street, building} = data.poi;
+        const {name, description, photos} = data.poi;
 
         return (
-            <Container>
-                <Scroll bounces={false}>
+            <SafeArea>
+                <Container>
                     <PhotoSwiper photos={photos} />
+                    <CloseButton onPress={() => navigation.goBack(null)} />
 
-                    <Content>
-                        <Title>{name}</Title>
-                        <Subtitle>{formatAddress({street, building})}</Subtitle>
+                    <Scroll bounces={false}>
+                        <H1>{name}</H1>
                         <Description>{description}</Description>
-                    </Content>
-                </Scroll>
 
-                <FooterButton
-                    label="На карте"
-                    onPress={() => navigation.navigate(Routes.MAP, {poiId: id})}
-                />
-            </Container>
+                        <Footer>
+                            <Button
+                                label="На карте"
+                                onPress={() => navigation.navigate(Routes.MAP, {poiId: id})}
+                            />
+                        </Footer>
+                    </Scroll>
+                </Container>
+            </SafeArea>
         );
     }
 

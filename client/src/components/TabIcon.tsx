@@ -1,5 +1,5 @@
 import React from 'react';
-import {MaterialIcons} from '@expo/vector-icons';
+import {Icon} from './Icon';
 import {theme} from '../consts';
 
 type TabBarIconProps = {
@@ -9,5 +9,9 @@ type TabBarIconProps = {
 };
 
 export const createTabIcon = (iconName: string) =>
-  ({tintColor}: TabBarIconProps) =>
-      <MaterialIcons name={iconName} size={theme.iconSize} color={tintColor} />
+    ({tintColor, focused}: TabBarIconProps) =>
+        <Icon
+            name={focused ? `${iconName}-active` : iconName}
+            size={theme.iconSize}
+            color={tintColor}
+        />

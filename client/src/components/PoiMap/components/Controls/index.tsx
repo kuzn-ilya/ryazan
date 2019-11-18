@@ -1,6 +1,5 @@
 import React from 'react';
-import {IconButton} from '../../../../components/IconButton';
-import {Container, Panel} from './atoms';
+import {Container, Panel, Button} from './atoms';
 
 type ControlsProps = {
     onUserLocation: () => void,
@@ -11,8 +10,8 @@ type ControlsProps = {
 export const Controls: React.FC<ControlsProps> = ({onUserLocation, onZoomIn, onZoomOut}) =>
     <Container pointerEvents="box-none">
         <Panel>
-            <IconButton icon="my-location" onPress={onUserLocation} />
-            <IconButton icon="zoom-in" onPress={onZoomIn} />
-            <IconButton icon="zoom-out" onPress={onZoomOut} />
+            <Button icon="zoom-in" onPress={onZoomIn} />
+            <Button icon="zoom-out" onPress={onZoomOut} />
+            <Button icon="my-location" onPress={onUserLocation} />
         </Panel>
     </Container>

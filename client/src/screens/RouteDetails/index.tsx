@@ -4,16 +4,17 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {FooterButton, LoadingScreen, PhotoSwiper} from '../../components';
+import {H1, Button, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
 import {Routes} from '../../consts';
 
 import {
+    SafeArea,
     Container,
     Scroll,
-    Content,
-    Title,
+    Footer,
     Description,
+    CloseButton,
 } from './atoms';
 
 const GET_ROUTE = gql`
@@ -24,6 +25,11 @@ const GET_ROUTE = gql`
             photos {
                 content {
                     url
+                }
+            }
+            routeitems(sort: "order") {
+                poi {
+                    name
                 }
             }
         }
@@ -53,24 +59,31 @@ export const RouteDetailsScreen: NavigationStackScreenComponent<RouteDetailsScre
     }
 
     if (data && data.route) {
-        const {name, description, photos} = data.route;
+        const {name, routeitems, photos} = data.route;
+
+        const description = routeitems!
+            .map(item => `* ${item!.poi!.name}`)
+            .join('\n');
 
         return (
-            <Container>
-                <Scroll bounces={false}>
+            <SafeArea>
+                <Container>
                     <PhotoSwiper photos={photos} />
+                    <CloseButton onPress={() => navigation.goBack(null)} />
 
-                    <Content>
-                        <Title>{name}</Title>
+                    <Scroll bounces={false}>
+                        <H1>{name}</H1>
                         <Description>{description}</Description>
-                    </Content>
-                </Scroll>
 
-                <FooterButton
-                    label="На карте"
-                    onPress={() => navigation.navigate(Routes.ROUTE_MAP, {routeId: id})}
-                />
-            </Container>
+                        <Footer>
+                            <Button
+                                label="На карте"
+                                onPress={() => navigation.navigate(Routes.MAP, {poiId: id})}
+                            />
+                        </Footer>
+                    </Scroll>
+                </Container>
+            </SafeArea>
         );
     }
 

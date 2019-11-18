@@ -1,15 +1,23 @@
-import Swiper from 'react-native-swiper';
+import RNSwiper from 'react-native-swiper';
 import styled from 'styled-components/native';
-import { theme } from '../../consts';
 
-export const Container = styled(Swiper).attrs({
-    activeDotColor: theme.red,
-})`
+export const Container = styled.View`
+    height: 250;
     width: 100%;
-    height: 230;
-`;
+`
+
+export const Swiper = styled(RNSwiper).attrs({
+    activeDotColor: 'white',
+    paginationStyle: {
+        marginBottom: 5,
+    },
+    dotStyle: {
+        backgroundColor: 'transparent',
+        borderColor: 'white',
+        borderWidth: 1,
+    },
+})``;
 
 export const Photo = styled.Image`
-    width: 100%;
-    height: 230;
+    height: 250;
 `;

@@ -5,9 +5,9 @@ import {Item} from './components';
 
 import {
     Container,
+    Background,
     Header,
     Logo,
-    Title,
     ItemList,
 } from './atoms';
 
@@ -16,15 +16,16 @@ export const Sidebar = () => {
 
     return (
         <Container>
-            <Header>
-                <Logo />
-                <Title>Туризм</Title>
-            </Header>
+            <Background>
+                <Header>
+                    <Logo />
+                </Header>
 
-            <ItemList>
-                <Item label="История" onPress={() => navigate(Routes.HISTORY)} />
-                <Item label="О приложении" onPress={() => navigate(Routes.ABOUT)} />
-            </ItemList>
+                <ItemList>
+                    <Item label="История" onPress={() => navigate(Routes.HISTORY)} />
+                    <Item label="О приложении" onPress={() => navigate(Routes.ABOUT)} />
+                </ItemList>
+            </Background>
         </Container>
     );
 };

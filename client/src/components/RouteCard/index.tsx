@@ -2,20 +2,18 @@ import React from 'react';
 import {useNavigation} from 'react-navigation-hooks';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
-import {Button} from '../Button';
-import {IconButton} from '../IconButton';
+import {Button, IconButton} from '../buttons';
 import {Card} from '../Card';
+import {H2} from '../Text';
+import {shareRoute} from '../../services';
 import {useFavorites} from '../../providers';
 import {getPrimaryPhotoUri, getShortDescription} from '../../utils';
 import {Routes, theme} from '../../consts';
 
 import {
-    Title,
     Subtitle,
     ActionBar,
-    Content,
-    LeftColumn,
-    RightColumn,
+    FlatIcons,
 } from './atoms';
 
 export type RouteCardProps = {
@@ -36,21 +34,19 @@ export const RouteCard: React.FC<RouteCardProps> = React.memo(({route}) => {
 
     return (
         <Card imageUri={photoUri} onPress={handleShowDetails}>
-            <Content>
-                <LeftColumn>
-                    <Title>{name}</Title>
-                    <Subtitle>{shortDescription}</Subtitle>
-                </LeftColumn>
-                <RightColumn>
-                    {isFavorite(route)
-                        ? <IconButton icon="favorite" color={theme.red}  onPress={handleRemoveFavorite} />
-                        : <IconButton icon="favorite-border" onPress={handleAddFavorite} />}
-                </RightColumn>
-            </Content>
+            <H2>{name}</H2>
+            <Subtitle>{shortDescription}</Subtitle>
 
             <ActionBar>
                 <Button label="На карте" onPress={handleShowOnMap} />
-                <Button label="Подробнее" onPress={handleShowDetails} />
+
+                <FlatIcons>
+                    <IconButton icon="share" onPress={() => shareRoute(route)} />
+
+                    {isFavorite(route)
+                        ? <IconButton icon="star-active" color={theme.red}  onPress={handleRemoveFavorite} />
+                        : <IconButton icon="star" onPress={handleAddFavorite} />}
+                </FlatIcons>
             </ActionBar>
         </Card>
     );

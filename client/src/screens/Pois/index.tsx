@@ -58,5 +58,5 @@ export const PoisScreen: NavigationBottomTabScreenComponent = () => {
 };
 
 PoisScreen.navigationOptions = {
-    tabBarIcon: createTabIcon('format-list-bulleted'),
+    tabBarIcon: createTabIcon('pois'),
 };

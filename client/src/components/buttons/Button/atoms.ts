@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
-import {theme} from '../../consts';
+import {theme} from '../../../consts';
 
 export const Container = styled.TouchableOpacity.attrs({
     activeOpacity: 0.75,
 })`
     background-color: ${theme.red};
-    height: 40;
-    border-radius: 2;
+    height: 41;
+    border-radius: 20.5;
     justify-content: center;
     align-items: center;
     elevation: 5;
@@ -18,8 +18,8 @@ export const Container = styled.TouchableOpacity.attrs({
 
 export const Label = styled.Text`
     color: white;
-    padding-horizontal: ${theme.screenIndent};
-    font-weight: bold;
-    font-size: 14;
+    padding-horizontal: 22;
+    font-family: "PT Sans";
+    font-size: 16;
     text-transform: uppercase;
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {IconButton} from '../../../buttons';
 import {theme} from '../../../../consts';
 
 export const Container = styled.View`
@@ -10,8 +11,16 @@ export const Container = styled.View`
 `;
 
 export const Panel = styled.View`
-    width: 50;
-    border-radius: 3;
+    width: 32;
+    border-radius: 16;
     backgroundColor: white;
-    elevation: 1;
+    elevation: 2;
 `;
+
+export const Button = styled(IconButton).attrs({
+    size: 18,
+    color: theme.darkGrey,
+})`
+    height: 53;
+    width: 32;
+`
