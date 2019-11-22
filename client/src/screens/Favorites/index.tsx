@@ -13,13 +13,12 @@ import {
     PoiCardAction,
 } from '../../components';
 
-import {Favorite, useFavorites} from '../../providers';
-import {Filter} from '../../utils';
+import {Favorite, useFavorites, useFilter} from '../../providers';
 import {List, Separator} from './atoms';
 import {filterFavorites} from './utils';
 
 export const FavoritesScreen: NavigationBottomTabScreenComponent = () => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
+    const [filter, setFilter] = useFilter();
     const {favorites} = useFavorites();
     const data = _.sortBy(filterFavorites(favorites, filter), 'name');
 

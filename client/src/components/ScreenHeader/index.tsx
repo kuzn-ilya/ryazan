@@ -1,5 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {TextInput, Keyboard, BackHandler, Platform, StatusBar} from 'react-native';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
+import {TextInput, Keyboard, BackHandler, Platform, StatusBar, NativeEventSubscription} from 'react-native';
+import {NavigationEvents} from 'react-navigation';
 import {useNavigation} from 'react-navigation-hooks';
 import {Container, Content, Title, SearchInput, Button} from './atoms';
 import {Routes} from '../../consts';
@@ -16,35 +17,43 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
     const navigation = useNavigation();
     const [searchBarShown, setSearchBarShown] = useState(false);
     const searchInputRef = useRef<TextInput>(null);
+    const isSearchEmpty = !filter.search;
 
-    const hideSearchBar = () => {
+    const hideSearchBar = useCallback(() => {
         setSearchBarShown(false);
         onFilterChange({...filter, search: ''});
-    };
+    }, [onFilterChange, filter]);
 
     useEffect(() => {
         const keyboardHideEvent = Platform.OS === 'ios'
             ? 'keyboardWillHide'
             : 'keyboardDidHide';
 
-        const handlers = [
-            BackHandler.addEventListener('hardwareBackPress', () => {
+        const sub = Keyboard.addListener(keyboardHideEvent, () => {
+            if (searchInputRef.current) {
+                searchInputRef.current.blur();
+            }
+
+            if (isSearchEmpty) {
+                hideSearchBar();
+            }
+        });
+
+        return () => sub.remove();
+    }, [hideSearchBar, isSearchEmpty]);
+
+    useEffect(() => {
+        const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+            if (navigation.isFocused()) {
                 hideSearchBar();
                 return searchBarShown;
-            }),
-            Keyboard.addListener(keyboardHideEvent, () => {
-                if (searchInputRef.current) {
-                    searchInputRef.current.blur();
-                }
+            }
 
-                if (!filter.search) {
-                    hideSearchBar();
-                }
-            }),
-        ];
+            return false;
+        });
 
-        return () => handlers.forEach(handler => handler.remove());
-    });
+        return () => sub.remove();
+    }, [hideSearchBar, searchBarShown]);
 
     const selectCategories = () =>
         navigation.navigate(Routes.FILTER, {
@@ -53,12 +62,19 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
                 onFilterChange({...filter, ...value}),
         });
 
-    const filterIcon = filter.search || filter.categories ? 'filter-active' : 'filter';
+    const filterIcon = (filter.search || filter.categories) ? 'filter-active' : 'filter';
 
     const handleMenuToggle = () => navigation.toggleDrawer();
 
-    const handleSearchChange = (search: string) =>
-        onFilterChange({...filter, search});
+    const handleScreenWillFocus = () => setSearchBarShown(!isSearchEmpty);
+
+    const handleSearchChange = (search: string) => onFilterChange({...filter, search});
+
+    const handleSearchBlur = () => {
+        if (isSearchEmpty) {
+            hideSearchBar();
+        }
+    };
 
     const renderSearchBar = () =>
         <>
@@ -70,9 +86,10 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
             <Content>
                 <SearchInput
                     ref={searchInputRef}
-                    autoFocus
+                    autoFocus={isSearchEmpty}
                     value={filter.search}
                     onChangeText={handleSearchChange}
+                    onBlur={handleSearchBlur}
                 />
             </Content>
 
@@ -119,6 +136,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({title, enableFilter, 
     return (
         <Container>
             <StatusBar barStyle="dark-content" />
+            <NavigationEvents onWillFocus={handleScreenWillFocus} />
 
             {!enableFilter
                 ? renderTitle()

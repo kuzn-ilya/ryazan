@@ -5,9 +5,10 @@ import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import {RouteCard, createTabIcon, ScreenHeader} from '../../components';
 import {messageBox} from '../../services';
+import {useFilter} from '../../providers';
 import * as Types from '../../types/graphql';
 import {List, Separator} from './atoms';
-import {Filter, formatRouteGqlFilter} from '../../utils';
+import {formatRouteGqlFilter} from '../../utils';
 
 const GET_ROUTES = gql`
     query($where: JSON!) {
@@ -34,7 +35,7 @@ const GET_ROUTES = gql`
 `;
 
 export const RoutesScreen: NavigationBottomTabScreenComponent = () => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
+    const [filter, setFilter] = useFilter();
 
     const where = formatRouteGqlFilter(filter);
     const {data, loading, refetch, error} = useQuery<Types.Query>(GET_ROUTES, {variables: {where}});

@@ -8,7 +8,7 @@ import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
 import {routeToPolyline} from './utils';
 import {theme} from '../../consts';
-import {Filter} from '../../utils';
+import {useFilter} from '../../providers';
 import {MapContainer} from './atoms';
 import {useData} from './use-data';
 
@@ -18,7 +18,7 @@ export type MapScreenParams = {
 };
 
 export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({navigation}) => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
+    const [filter, setFilter] = useFilter();
     const mapControlRef = useRef<PoiMapControl>(null);
 
     const poiId = navigation.getParam('poiId');

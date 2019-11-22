@@ -5,9 +5,10 @@ import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import {PoiCard, createTabIcon, ScreenHeader} from '../../components';
 import {messageBox} from '../../services';
+import {useFilter} from '../../providers';
 import * as Types from '../../types/graphql';
 import {List, Separator} from './atoms';
-import {Filter, formatPoiGqlFilter} from '../../utils';
+import {formatPoiGqlFilter} from '../../utils';
 
 const GET_POIS = gql`
     query($where: JSON!) {
@@ -29,7 +30,7 @@ const GET_POIS = gql`
 `;
 
 export const PoisScreen: NavigationBottomTabScreenComponent = () => {
-    const [filter, setFilter] = useState<Filter>({search: '', categories: null});
+    const [filter, setFilter] = useFilter();
 
     const where = formatPoiGqlFilter(filter);
     const {data, loading, refetch, error} = useQuery<Types.Query>(GET_POIS, {variables: {where}});
