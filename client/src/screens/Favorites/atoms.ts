@@ -8,7 +8,7 @@ export const List = styled(FlatList).attrs({
     },
 })`
     flex: 1;
-    background-color: ${theme.windowHeaderColor};
+    background-color: white;
 ` as unknown as typeof FlatList;
 
 export const Separator = styled.View`
