@@ -11,7 +11,7 @@ import {Content, SelectAllWrapper} from './atoms';
 
 const GET_CATEGORIES = gql`
     query {
-        categories {
+        categories(sort: "name") {
             id
             name
         }
