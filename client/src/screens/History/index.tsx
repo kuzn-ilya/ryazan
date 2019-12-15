@@ -5,3 +5,8 @@ export const HistoryScreen = () =>
     <Container>
         <Title>История</Title>
     </Container>
+
+HistoryScreen.navigationOptions = {
+    title: 'История',
+    headerShown: true,
+};

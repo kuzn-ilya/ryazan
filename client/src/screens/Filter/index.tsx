@@ -88,4 +88,5 @@ export const FilterScreen: NavigationStackScreenComponent<FilterScreenParams> = 
 
 FilterScreen.navigationOptions = {
     title: 'Фильтр',
+    headerShown: true,
 };

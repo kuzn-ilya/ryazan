@@ -7,3 +7,8 @@ export const AboutScreen = () =>
         <Title>{Constants.manifest.name}</Title>
         <Version>{Constants.manifest.version}</Version>
     </Container>
+
+AboutScreen.navigationOptions = {
+    title: 'О приложении',
+    headerShown: true,
+};

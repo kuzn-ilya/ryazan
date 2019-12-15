@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, ListRenderItem} from 'react-native';
 import {NavigationBottomTabScreenComponent} from 'react-navigation-tabs';
 import _ from 'lodash';
-import {windowHeaderConfig} from '../../components';
 import {EmptyList} from './components';
 
 import {
@@ -57,5 +56,4 @@ export const FavoritesScreen: NavigationBottomTabScreenComponent = () => {
 
 FavoritesScreen.navigationOptions = {
     tabBarIcon: createTabIcon('star'),
-    ...windowHeaderConfig,
 };

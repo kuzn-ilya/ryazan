@@ -16,7 +16,7 @@ import {
     RoutesScreen,
 } from './screens';
 
-import {Sidebar} from './components';
+import {Sidebar, windowHeaderConfig} from './components';
 import {Routes, theme} from './consts';
 
 const Tabs = createBottomTabNavigator({
@@ -34,9 +34,6 @@ const Tabs = createBottomTabNavigator({
             height: theme.footerHeight,
         },
     },
-    navigationOptions: {
-        header: null,
-    },
 });
 
 const Stack = createStackNavigator({
@@ -53,8 +50,11 @@ const Stack = createStackNavigator({
     [Routes.HISTORY]: HistoryScreen,
     [Routes.ABOUT]: AboutScreen,
 }, {
-    headerMode: 'none',
     headerLayoutPreset: 'center',
+    defaultNavigationOptions: {
+        headerShown: false,
+        ...windowHeaderConfig,
+    },
 });
 
 const Drawer = createDrawerNavigator({
