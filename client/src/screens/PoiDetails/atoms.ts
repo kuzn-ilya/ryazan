@@ -54,8 +54,12 @@ export const CloseButton = styled(IconButton).attrs({
     height: 30;
     border-radius: 15;
     background-color: white;
-    elevation: 2;
     min-height: 30;
+    elevation: 2;
+    shadow-color: black;
+    shadow-offset: 0 1px;
+    shadow-opacity: 0.20;
+    shadow-radius: 1.41;
 `;
 
 export const Footer = styled.View`

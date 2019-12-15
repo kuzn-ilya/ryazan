@@ -15,6 +15,10 @@ export const Panel = styled.View`
     border-radius: 16;
     backgroundColor: white;
     elevation: 2;
+    shadow-color: black;
+    shadow-offset: 0 1px;
+    shadow-opacity: 0.20;
+    shadow-radius: 1.41;
 `;
 
 export const Button = styled(IconButton).attrs({

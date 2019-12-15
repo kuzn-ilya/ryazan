@@ -5,6 +5,7 @@ import {theme} from '../../consts';
 
 export const Container = styled(Header)`
     background-color: white;
+    z-index: 1;
     ${theme.defaultShadow}
 `;
 
