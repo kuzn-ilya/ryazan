@@ -6,7 +6,7 @@ import _ from 'lodash';
 import * as Types from '../../types/graphql';
 import {H1, Button, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
-import {Routes} from '../../consts';
+import {Routes, POI_INFO} from '../../consts';
 
 import {
     SafeArea,
@@ -20,17 +20,7 @@ import {
 const GET_POI = gql`
     query Poi($id: ID!) {
         poi(id: $id) {
-            name
-            description
-            building
-            street {
-                name
-            }
-            photos {
-                content {
-                    url
-                }
-            }
+            ${POI_INFO}
         }
     }
 `;

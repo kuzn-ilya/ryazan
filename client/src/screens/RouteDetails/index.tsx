@@ -6,7 +6,7 @@ import _ from 'lodash';
 import * as Types from '../../types/graphql';
 import {H1, Button, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
-import {Routes} from '../../consts';
+import {Routes, ROUTE_INFO} from '../../consts';
 
 import {
     SafeArea,
@@ -20,18 +20,7 @@ import {
 const GET_ROUTE = gql`
     query Route($id: ID!) {
         route(id: $id) {
-            name
-            description
-            photos {
-                content {
-                    url
-                }
-            }
-            routeitems(sort: "order") {
-                poi {
-                    name
-                }
-            }
+            ${ROUTE_INFO}
         }
     }
 `;

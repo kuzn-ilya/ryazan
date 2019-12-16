@@ -4,6 +4,7 @@ import {useQuery} from 'react-apollo-hooks';
 import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import {PoiCard, createTabIcon, ScreenHeader} from '../../components';
+import {POI_INFO} from '../../consts';
 import {messageBox} from '../../services';
 import {useFilter} from '../../providers';
 import * as Types from '../../types/graphql';
@@ -13,20 +14,7 @@ import {formatPoiGqlFilter} from '../../utils';
 const GET_POIS = gql`
     query($where: JSON!) {
         pois(where: $where, sort: "name") {
-            id
-            name
-            description
-            latitude
-            longitude
-            photos {
-                content {
-                    url
-                }
-            }
-            category {
-                id
-                name
-            }
+            ${POI_INFO}
         }
     }
 `;

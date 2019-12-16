@@ -9,27 +9,12 @@ import {useFilter} from '../../providers';
 import * as Types from '../../types/graphql';
 import {List, Separator} from './atoms';
 import {formatRouteGqlFilter} from '../../utils';
+import { ROUTE_INFO } from '../../consts';
 
 const GET_ROUTES = gql`
     query($where: JSON!) {
         routes(where: $where, sort: "name") {
-            id
-            name
-            description
-            photos {
-                content {
-                    provider
-                    url
-                }
-            }
-            routeitems {
-                poi {
-                    category {
-                        id
-                        name
-                    }
-                }
-            }
+            ${ROUTE_INFO}
         }
     }
 `;

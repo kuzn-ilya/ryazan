@@ -2,29 +2,9 @@ import {useMemo} from 'react';
 import {useQuery} from 'react-apollo-hooks';
 import {gql, ApolloError} from 'apollo-boost';
 import _ from 'lodash';
+import {POI_INFO, ROUTE_INFO} from '../../consts';
 import {Filter, formatPoiGqlFilter} from '../../utils';
 import * as Types from '../../types/graphql';
-
-const POI_INFO = `
-    id
-    name
-    description
-    latitude
-    longitude
-    building
-    street {
-        name
-    }
-    photos {
-        content {
-            url
-        }
-    }
-    category {
-        id
-        name
-    }
-`
 
 const GET_POIS = gql`
     query($where: JSON!) {
@@ -37,13 +17,7 @@ const GET_POIS = gql`
 const GET_ROUTE = gql`
     query($id: ID!) {
         route(id: $id) {
-            id
-            name
-            routeitems(sort: "order") {
-                poi {
-                    ${POI_INFO}
-                }
-            }
+            ${ROUTE_INFO}
         }
     }
 `

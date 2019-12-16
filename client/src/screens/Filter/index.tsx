@@ -5,6 +5,7 @@ import {gql} from 'apollo-boost';
 import _ from 'lodash';
 import * as Types from '../../types/graphql';
 import {CheckBox, FooterButton, LoadingScreen, TextButton} from '../../components';
+import {CATEGORY_INFO} from '../../consts';
 import {messageBox} from '../../services';
 import {Filter} from '../../utils';
 import {Content, SelectAllWrapper} from './atoms';
@@ -12,8 +13,7 @@ import {Content, SelectAllWrapper} from './atoms';
 const GET_CATEGORIES = gql`
     query {
         categories(sort: "name") {
-            id
-            name
+            ${CATEGORY_INFO}
         }
     }
 `;
