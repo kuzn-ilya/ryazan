@@ -23,6 +23,8 @@ export const Title = styled.Text`
 `;
 
 export const SearchInput = styled.TextInput`
+    font-family: "PT Sans";
+    font-size: 17;
     width: 100%;
     border-bottom-width: 2;
     border-bottom-color: ${theme.lightGrey}
