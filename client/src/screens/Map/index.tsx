@@ -6,7 +6,7 @@ import {createTabIcon, PoiCard, Modal, PoiCardAction, PoiMap, PoiMapControl, Scr
 import {LoadingIndicator} from './components';
 import {messageBox} from '../../services';
 import * as Types from '../../types/graphql';
-import {routeToPolyline} from './utils';
+import {routePointsToPolyline} from './utils';
 import {theme} from '../../consts';
 import {useFilter} from '../../providers';
 import {MapContainer} from './atoms';
@@ -23,7 +23,7 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
 
     const poiId = navigation.getParam('poiId');
     const routeId = navigation.getParam('routeId');
-    const {loading, error, isRoute, pois} = useData({routeId, filter});
+    const {loading, error, pois, routePoints} = useData({routeId, filter});
     useEffect(_.partial(messageBox.error, error), [error]);
 
     const [selectedMarker, setSelectedMarker] = useState<Types.Poi | null>(null);
@@ -52,7 +52,7 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
         <>
             <ScreenHeader
                 title="Карта"
-                enableFilter={!isRoute}
+                enableFilter={!routePoints}
                 filter={filter}
                 onFilterChange={setFilter}
             />
@@ -60,13 +60,13 @@ export const MapScreen: NavigationBottomTabScreenComponent<MapScreenParams> = ({
             <MapContainer>
                 <PoiMap
                     controlRef={mapControlRef}
-                    enableClusters={!isRoute}
+                    enableClusters={!routePoints}
                     pois={pois}
                     onPoiPress={setSelectedMarker}
                 >
-                    {isRoute &&
+                    {routePoints &&
                         <Polyline
-                            coordinates={routeToPolyline(pois)}
+                            coordinates={routePointsToPolyline(routePoints)}
                             strokeColor={theme.routeLineColor}
                             strokeWidth={3}
                             lineCap="round"

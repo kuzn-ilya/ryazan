@@ -40,4 +40,8 @@ export const ROUTE_INFO = `
             ${POI_INFO}
         }
     }
+    routepoints(sort: "order") {
+        latitude
+        longitude
+    }
 `
