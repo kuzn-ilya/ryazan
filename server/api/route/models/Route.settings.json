@@ -28,6 +28,10 @@
     "routeitems": {
       "collection": "routeitem",
       "via": "route"
+    },
+    "routepoints": {
+      "collection": "routepoint",
+      "via": "route"
     }
   }
 }

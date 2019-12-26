@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/routepoints",
+      "handler": "Routepoint.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/routepoints/count",
+      "handler": "Routepoint.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/routepoints/:id",
+      "handler": "Routepoint.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/routepoints",
+      "handler": "Routepoint.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/routepoints/:id",
+      "handler": "Routepoint.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/routepoints/:id",
+      "handler": "Routepoint.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

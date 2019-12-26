@@ -1,0 +1,36 @@
+{
+  "connection": "default",
+  "collectionName": "routepoints",
+  "info": {
+    "name": "routepoint",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "latitude": {
+      "type": "float",
+      "default": "0",
+      "required": true
+    },
+    "longitude": {
+      "type": "float",
+      "default": "0",
+      "required": true
+    },
+    "route": {
+      "model": "route",
+      "via": "routepoints"
+    },
+    "order": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}
