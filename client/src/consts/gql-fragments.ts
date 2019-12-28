@@ -26,6 +26,11 @@ export const POI_INFO = `
     category {
         ${CATEGORY_INFO}
     }
+    businesshours {
+        day
+        opening
+        closing
+    }
 `
 
 export const ROUTE_INFO = `
