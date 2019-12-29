@@ -3,7 +3,7 @@
     "name": "Ryazan Mobile Application",
     "slug": "ryazan",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "36.0.0",
     "entryPoint": "./src/App.tsx",
     "platforms": [
       "ios",

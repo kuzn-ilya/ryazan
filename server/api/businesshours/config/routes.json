@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/businesshours",
+      "handler": "Businesshours.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/businesshours/count",
+      "handler": "Businesshours.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/businesshours/:id",
+      "handler": "Businesshours.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/businesshours",
+      "handler": "Businesshours.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/businesshours/:id",
+      "handler": "Businesshours.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/businesshours/:id",
+      "handler": "Businesshours.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

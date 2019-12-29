@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {Region} from 'react-native-maps';
 import {BoundingBox} from '@mapbox/geo-viewport';
 import {Feature, Point} from 'geojson';
@@ -28,8 +29,5 @@ export const regionToBoundingBox = (region: Region): BoundingBox => {
     ];
 };
 
-export const routeToPolyline = (pois: Types.Poi[]) =>
-    pois.map(poi => ({
-        longitude: poi.longitude,
-        latitude: poi.latitude,
-    }));
+export const routePointsToPolyline = (points: Types.Routepoint[]) =>
+    points.map(point => _.pick(point, ['longitude', 'latitude']));

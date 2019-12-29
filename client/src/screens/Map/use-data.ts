@@ -29,25 +29,29 @@ type UseDataArgs = {
 
 type UseDataResult = {
     loading: boolean,
-    isRoute: boolean,
     error?: ApolloError,
     pois: Types.Poi[],
+    routePoints?: Types.Routepoint[],
 }
 
 export const useData = ({routeId, filter}: UseDataArgs): UseDataResult => {
     if (routeId) {
         const {data, loading, error} = useQuery<Types.Query>(GET_ROUTE, {variables: {id: routeId}});
 
-        const pois = useMemo(() => {
+        const {pois, routePoints} = useMemo(() => {
             const routeitems = _.get(data, 'route.routeitems', []) as Types.Routeitem[];
-            return _.map(routeitems, 'poi') as Types.Poi[];
+
+            return {
+                pois: _.map(routeitems, 'poi') as Types.Poi[],
+                routePoints: _.get(data, 'route.routepoints', []) as Types.Routepoint[],
+            };
         }, [data]);
 
         return {
             loading,
             error,
-            isRoute: true,
             pois,
+            routePoints,
         };
     } else {
         const where = formatPoiGqlFilter(filter);
@@ -61,7 +65,6 @@ export const useData = ({routeId, filter}: UseDataArgs): UseDataResult => {
         return {
             loading,
             error,
-            isRoute: false,
             pois,
         }
     }

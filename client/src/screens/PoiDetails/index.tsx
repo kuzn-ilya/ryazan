@@ -7,6 +7,7 @@ import * as Types from '../../types/graphql';
 import {H1, Button, LoadingScreen, PhotoSwiper} from '../../components';
 import {messageBox} from '../../services';
 import {Routes, POI_INFO} from '../../consts';
+import {BusinessHours} from './components';
 
 import {
     SafeArea,
@@ -48,7 +49,7 @@ export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenPa
     }
 
     if (data && data.poi) {
-        const {name, description, photos} = data.poi;
+        const {name, description, businesshours, photos} = data.poi;
 
         return (
             <SafeArea>
@@ -58,6 +59,7 @@ export const PoiDetailsScreen: NavigationStackScreenComponent<PoiDetailsScreenPa
 
                     <Scroll bounces={false}>
                         <H1>{name}</H1>
+                        {businesshours && <BusinessHours businesshours={businesshours} />}
                         <Description>{description}</Description>
 
                         <Footer>

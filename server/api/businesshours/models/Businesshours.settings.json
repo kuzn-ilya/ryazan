@@ -1,0 +1,41 @@
+{
+  "connection": "default",
+  "collectionName": "businesshours",
+  "info": {
+    "name": "businesshours",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "day": {
+      "enum": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "type": "enumeration",
+      "default": "Monday",
+      "required": true
+    },
+    "opening": {
+      "type": "string",
+      "required": true
+    },
+    "closing": {
+      "type": "string",
+      "required": true
+    },
+    "poi": {
+      "model": "poi",
+      "via": "businesshours"
+    }
+  }
+}

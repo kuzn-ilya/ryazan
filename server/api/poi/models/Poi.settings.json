@@ -47,6 +47,10 @@
     "routeitems": {
       "collection": "routeitem",
       "via": "poi"
+    },
+    "businesshours": {
+      "collection": "businesshours",
+      "via": "poi"
     }
   }
 }

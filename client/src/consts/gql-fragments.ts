@@ -26,6 +26,11 @@ export const POI_INFO = `
     category {
         ${CATEGORY_INFO}
     }
+    businesshours {
+        day
+        opening
+        closing
+    }
 `
 
 export const ROUTE_INFO = `
@@ -39,5 +44,9 @@ export const ROUTE_INFO = `
         poi {
             ${POI_INFO}
         }
+    }
+    routepoints(sort: "order") {
+        latitude
+        longitude
     }
 `
