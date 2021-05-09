@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "knex": "latest",
-    "lodash": "4.17.5",
+    "lodash": "4.17.21",
     "pg": "^7.11.0",
     "strapi": "3.0.0-beta.8",
     "strapi-admin": "3.0.0-beta.8",
